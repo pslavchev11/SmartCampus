@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
+<head>
+    <title>My Grades</title>
+</head>
+<body layout:fragment="body">
+<div class="container mt-4" sec:authorize="hasRole('STUDENT')">
+    <h2 class="mb-4">My Grades</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Course</th>
+            <th>Date Awarded</th>
+            <th>Grade</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="g : ${grades}">
+            <!-- Link back to the course detail -->
+            <td>
+                <a th:href="@{/courses/{id}(id=${g.courseId})}"
+                   th:text="${g.courseName}">Course Name</a>
+            </td>
+            <!-- Format LocalDate via the Java 8 time extras -->
+            <td th:text="${#temporals.format(g.dateAwarded, 'yyyy-MM-dd')}">2025-05-12</td>
+            <td th:text="${g.grade}">0.0</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/courses}" class="btn btn-secondary">
+        Back to Courses
+    </a>
+</div>
+</body>
+</html>

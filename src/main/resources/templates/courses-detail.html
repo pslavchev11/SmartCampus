@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">
+        <span th:text="${course.name}">Course Name</span>
+    </title>
+</head>
+<body layout:fragment="body">
+<div class="container py-4">
+    <div class="mb-4 text-center">
+        <img
+                th:if="${course.photoUrl}"
+                th:src="${course.photoUrl}"
+                alt="Image for [[${course.name}]]"
+                class="img-fluid rounded"
+                style="max-height: 300px; object-fit: cover;"
+        />
+    </div>
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h1 th:text="${course.name}">Course Name</h1>
+
+        <div th:if="${user.id == course.createdById}" class="d-flex align-items-center gap-2 mb-4">
+            <a th:href="@{/courses/{id}/edit(id=${course.id})}"
+               class="btn btn-outline-primary me-2">
+                Edit
+            </a>
+            <a th:href="@{/courses/{id}/delete(id=${course.id})}"
+               class="btn btn-outline-danger">
+                Delete
+            </a>
+        </div>
+    </div>
+    <p>
+        <strong>Teacher:</strong>
+        <span th:text="${course.createdByUsername}">teacherUsername</span>
+    </p>
+    <p><strong>Description:</strong> <span th:text="${course.description}">…</span></p>
+    <p>
+        <strong>When:</strong>
+        <span th:text="${#temporals.format(course.startTime, 'HH:mm')}"></span>
+        –
+        <span th:text="${#temporals.format(course.endTime,   'HH:mm')}"></span>
+    </p>
+    <p>
+        <strong>Semester:</strong>
+        From
+        <span th:text="${course.semesterStart}"></span>
+        to
+        <span th:text="${course.semesterEnd}"></span>
+        on
+        <span th:text="${{'Mondays','Tuesdays','Wednesdays','Thursdays','Fridays','Saturdays','Sundays'}[course.dayOfWeek - 1]}"></span>
+    </p>
+
+
+    <div class="d-flex gap-2 mt-4">
+    <!-- somewhere in your course‐detail template -->
+        <form th:action="@{/courses/{id}/enroll(id=${course.id})}"
+              method="post"
+              class="d-inline"
+              sec:authorize="hasRole('STUDENT')"
+              th:if="${not alreadyEnrolled}">
+            <button type="submit" class="btn btn-success">
+                Enroll
+            </button>
+        </form>
+
+        <div sec:authorize="hasRole('STUDENT')"
+             th:if="${alreadyEnrolled}">
+            <button class="btn btn-secondary" disabled>Already Enrolled</button>
+        </div>
+
+        <div sec:authorize="hasRole('TEACHER')">
+            <a class="btn btn-primary"
+               th:href="@{/courses/{id}/students(id=${course.id})}">
+                View Roster
+            </a>
+        </div>
+
+        <a th:href="@{/courses}" class="btn btn-secondary">Back to Calendar</a>
+    </div>
+</div>
+</body>
+</html>

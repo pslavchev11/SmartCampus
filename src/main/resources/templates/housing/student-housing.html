@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>My Housing</title>
+
+</head>
+<div layout:fragment="body">
+    <div class="container mt-4">
+    <h2>My Campus Housing&nbsp;&nbsp;</h2>
+
+    <div class="card mt-3" th:if="${myHousing != null}">
+        <div class="card-header">
+            <strong th:text="${myHousing.buildingName} + ' – Room ' + ${myHousing.roomNumber}">
+                Building / Room
+            </strong>
+        </div>
+        <div class="card-body">
+            <p><strong>Price per Semester:</strong>
+                <span th:text="${myHousing.pricePerSemester} + ' BGN'">400 BGN</span>
+            </p>
+            <p>
+                <strong>Assigned to:</strong>
+                <span th:text="${myHousing.studentUsername}">myUsername</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="alert alert-warning mt-3" th:if="${myHousing == null}">
+        You currently have no housing assigned. Please contact administration.
+    </div>
+    </div>
+</div>
+</html>

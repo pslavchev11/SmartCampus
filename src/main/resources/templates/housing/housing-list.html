@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Campus Housing (Admin)</title>
+    <!-- You can add page‐specific <link> or <script> tags here if needed -->
+</head>
+
+<!-- THIS DIV must match layout.html’s `layout:fragment="body"` -->
+<div layout:fragment="body">
+    <div class="container mt-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h2>Housing &nbsp; </h2>
+
+            <div sec:authorize="hasRole('ADMIN')" class="mb-3">
+                <a class="btn btn-sm btn-outline-primary" th:href="@{/housing/new}">
+                    Create New Housing
+                </a>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Building</th>
+                <th>Room</th>
+                <th>Price / Semester</th>
+                <th>Assigned Student</th>
+                <th sec:authorize="hasRole('ADMIN')">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="h : ${housings}">
+                <td th:text="${h.buildingName}">North Hall</td>
+                <td th:text="${h.roomNumber}">101</td>
+                <td th:text="${h.pricePerSemester + ' BGN'}">400 BGN</td>
+                <td th:text="${h.studentUsername != null ? h.studentUsername : '—'}">—</td>
+                <td sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/housing/{id}/edit(id=${h.id})}"
+                       class="btn btn-outline-primary me-2">Edit</a>
+                    <a th:href="@{/housing/{id}/delete(id=${h.id})}"
+                       class="btn btn-outline-danger"
+                       onclick="return confirm('Delete this housing?');">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</html>

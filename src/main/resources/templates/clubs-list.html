@@ -1,0 +1,60 @@
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+<head>
+    <title>Club List</title>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <!-- Page Content-->
+    <section layout:fragment="body" class="py-5">
+        <div class="container px-5 my-5">
+            <div th:if="${param.success}" class="alert alert-success">
+                You are registered successfully!
+            </div>
+            <div class="row align-items-center mb-5">
+                <div class="col-3"></div>
+                <div class="col-6 text-center">
+                    <h1 class="fw-bolder">Clubs in my University</h1>
+                    <p class="lead fw-normal text-muted mb-0">
+                        Welcome to the fun never ends
+                    </p>
+                </div>
+                <div class="col-3 text-end">
+                    <a th:href="@{/clubs/new}" class="btn btn-sm btn-outline-primary">Create </a>
+                </div>
+            </div>
+            <div class="row gx-5">
+                <div>
+                    <form th:action="@{/clubs/search}" class="form-inline my-2 my-lg-0 mb-3">
+                        <input name="query" class="form-control mr-sm-2" type="search" placeholder="Search for clubs" aria-label="Search">
+                    </form>
+                </div>
+                <div class="row gx-5 mt-5">
+                    <div th:each="club :${clubs}" class="col-lg-4 mb-2">
+                        <div class="position-relative mb-3">
+    <!--                        <img class="img-fluid rounded-3 mb-3" th:src="${club.photoUrl}" alt="..."/>-->
+                            <div class="ratio ratio-1x1 rounded-3 overflow-hidden mb-2">
+                                <img
+                                        th:src="${club.photoUrl}"
+                                        alt="Club photo"
+                                        class="img-fluid w-100 h-100"
+                                        style="object-fit: cover;"
+                                />
+                            </div>
+                            <a th:text="${club.title}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!">Project name</a>
+
+                        </div>
+                        <a class="btn btn-primary" th:href="@{/clubs/{clubId}(clubId=${club.id})}">View</a>
+                        <div th:if="${user.id} == ${club.createdBy.id}">
+                            <a class="btn btn-primary" th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

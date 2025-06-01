@@ -1,0 +1,103 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head>
+    <title>Course Calendar</title>
+
+    <!-- FullCalendar CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+</head>
+
+<body layout:fragment="body">
+<div class="container mt-4">
+    <div class="row">
+        <!-- Calendar column -->
+        <div class="col-md-9">
+            <div id="calendar"></div>
+        </div>
+        <!-- Sidebar of course names -->
+        <div class="col-md-3">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="mb-0">Courses</h5>
+                <a class="btn btn-sm btn-outline-primary"
+                   sec:authorize="hasRole('TEACHER')"
+                   th:href="@{/courses/new}">
+                    Create
+                </a>
+            </div>
+            <ul class="list-unstyled">
+                <li th:each="course : ${courses}" class="d-flex align-items-center mb-2">
+                    <!-- color picker first -->
+                    <div>
+                    <input
+                            type="color"
+                            th:value="${course.color}"
+                            th:attr="data-id=${course.id}"
+                            class="course-color-picker me-2"
+                            style="width:12px; height:12px;padding:0; border:none; border-radius:4px; align-self:center;"
+                            title="Pick a calendar color" />
+                    </div>
+                    <!-- then the name -->
+                    <a
+                            th:href="@{/courses/{id}(id=${course.id})}"
+                            class="ms-2 text-decoration-none"
+                            style="color: inherit;"
+                            th:text="${course.name}">
+                    </a>
+                    <!-- then the edit/delete buttons -->
+<!--                    <div th:if="${user.id} == ${course.createdById}">-->
+<!--                        <div class="d-flex align-items-center gap-2">-->
+<!--                            <a class="btn btn-sm btn-outline-primary ms-4" th:href="@{/courses/{courseId}/edit(courseId=${course.id})}">Edit</a>-->
+<!--                            <a class="btn btn-sm btn-outline-danger" th:href="@{/courses/{courseId}/edit(courseId=${course.id})}">Delete</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener('DOMContentLoaded', function() {
+      var events = /*[[${eventsJson}]]*/ '[]';
+      try { events = JSON.parse(events); } catch(e){ events = []; }
+
+      var calendar = new FullCalendar.Calendar(
+        document.getElementById('calendar'),
+        {
+          initialView:  'dayGridMonth',
+          headerToolbar:{
+            left:   'today prev,next',
+            center: 'title',
+            right:  'dayGridMonth,timeGridWeek,listWeek'
+          },
+          events: events,
+
+          eventDidMount: function(info) {
+            if (info.view.type.startsWith('list')) {
+              // select the actual link in list view
+              let link = info.el.querySelector('.fc-list-event-title');
+              if (link) link.style.color = info.event.textColor;
+            }
+          }
+        }
+      );
+
+      calendar.render();
+
+      document.querySelectorAll('.course-color-picker')
+        .forEach(function(picker){
+          picker.addEventListener('input', function(){
+            const ev = calendar.getEventById(picker.dataset.id);
+            if (!ev) return;
+            ev.setProp('backgroundColor', picker.value);
+            ev.setProp('borderColor',     picker.value);
+            ev.setProp('textColor',       picker.value);
+          });
+        });
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

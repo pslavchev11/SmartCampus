@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body layout:fragment="body">
+<div class="container mt-4">
+    <h2>User Management</h2>
+
+    <h3>Teachers</h3>
+    <table class="table table-striped mb-5">
+        <thead><tr><th>Username</th><th>Email</th></tr></thead>
+        <tbody>
+        <tr th:each="u : ${teachers}">
+            <td th:text="${u.username}">username</td>
+            <td th:text="${u.email}">Email</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Students</h3>
+    <table class="table table-striped mb-5">
+        <thead><tr><th>Username</th><th>Email</th></tr></thead>
+        <tbody>
+        <tr th:each="u : ${students}">
+            <td th:text="${u.username}">username</td>
+            <td th:text="${u.email}">Email</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="'Enrolled in ' + ${course.name}">Course Roster</title>
+</head>
+<body layout:fragment="body">
+<div class="container mt-4">
+    <h2 th:text="'Roster for ' + ${course.name}">Roster</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Student</th>
+<!--            <th>Date Enrolled</th>-->
+            <th>Grade</th>
+            <th>Type of Grade</th>
+            <th>Grade Date</th>
+            <th>Endorsement</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="enr : ${roster}">
+            <td th:text="${enr.studentUsername}">studentUsername</td>
+<!--            <td th:text="${#temporals.format(enr.dateAwarded,'yyyy-MM-dd')}">-->
+<!--                2025-05-14-->
+<!--            </td>-->
+            <td th:text="${enr.grade != null ? enr.grade : '—'}">—</td>
+            <td th:text="${enr.typeOfGrade != null ? enr.typeOfGrade : '—'}">—</td>
+            <td th:text="${enr.gradeDateAwarded != null
+                 ? #temporals.format(enr.gradeDateAwarded,'yyyy-MM-dd')
+                 : '—'}">
+            </td>
+            <td th:text="${enr.endorsement != null ? enr.endorsement : '—'}">—</td>
+
+            <td>
+                <a th:if="${enr.grade == null}"
+                   class="btn btn-sm btn-primary"
+                   th:href="@{/grades/new(courseId=${course.id},studentId=${enr.studentId})}">
+                    Grade
+                </a>
+                <button th:if="${enr.grade != null}"
+                        class="btn btn-sm btn-secondary"
+                        disabled>
+                    Already Graded
+                </button>
+                <a th:if="${enr.gradeId != null}"
+                   class="btn btn-sm btn-secondary"
+                   th:href="@{/grades/{id}/edit(id=${enr.gradeId})}">
+                    Edit
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/courses/{id}(id=${course.id})}" class="btn btn-secondary">Back to Course</a>
+</div>
+</body>
+</html>

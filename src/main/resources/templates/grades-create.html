@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
+<head>
+    <title>Assign Grade</title>
+</head>
+<body layout:fragment="body">
+<div class="container py-4">
+    <h2 class="mb-4">Assign Grade</h2>
+
+    <!-- If you populated them on the DTO, you can show these -->
+    <p>
+        <strong>Course:</strong>
+        <span th:text="${gradeDto.courseName}">Course Name</span>
+    </p>
+    <p>
+        <strong>Student:</strong>
+        <span th:text="${gradeDto.studentUsername}">Student Name</span>
+    </p>
+
+    <form th:action="@{/grades/new}" th:object="${gradeDto}" method="post" sec:authorize="hasRole('TEACHER')">
+        <!-- keep track of which course & student -->
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{courseId}" />
+        <input type="hidden" th:field="*{studentId}" />
+
+        <div class="form-group mb-3">
+            <label for="gradeValue"><strong>Grade</strong></label>
+            <input type="number"
+                   step="0.01"
+                   class="form-control"
+                   id="gradeValue"
+                   th:field="*{grade}"
+                   placeholder="e.g. 95.5" />
+        </div>
+
+        <div class="mb-3">
+            <label for="typeOfGrade" class="form-label"><strong>Type of Grade</strong></label>
+            <select id="typeOfGrade"
+                    th:field="*{typeOfGrade}"
+                    class="form-select"
+                    >
+                <option value=""
+                        selected
+                        hidden
+                        th:text="'Select type of grade'">
+                    Select type of grade
+                </option>
+                <option value="Exam"
+                        th:text="'Exam'">Exam</option>
+                <option value="Assignment"
+                        th:text="'Assignment'">Assignment</option>
+                <option value="Project"
+                        th:text="'Project'">Project</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label><strong>Date Awarded</strong></label>
+            <p th:text="${#temporals.format(T(java.time.LocalDate).now(),'yyyy-MM-dd')}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label for="endorsement" class="form-label"><strong>Endorsement</strong></label>
+            <select id="endorsement"
+                    th:field="*{endorsement}"
+                    class="form-control"
+                    >
+                <option value=""
+                        selected
+                        hidden
+                        th:text="'Select endorsement'">
+                    Select endorsement
+                </option>
+                <option value="Yes"
+                        th:text="Yes">Yes</option>
+                <option value="No"
+                        th:text="No">No</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a th:href="@{/courses/{id}/students(id=${gradeDto.courseId})}"
+           class="btn btn-secondary ms-2">
+            Cancel
+        </a>
+    </form>
+</div>
+</body>
+</html>
