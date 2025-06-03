@@ -1,4 +1,4 @@
-package com.rungroup.web.I18C;
+package com.rungroup.web.i18c;
 
 
 import org.springframework.context.annotation.Bean;
