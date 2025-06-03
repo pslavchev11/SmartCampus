@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
+
 <head>
     <meta charset="UTF-8"/>
-    <title>My Housing</title>
-
+    <title th:text="#{housing.my.title}">My Campus Housing</title>
 </head>
+
+<!-- must match layout.html’s `layout:fragment="body"` -->
 <div layout:fragment="body">
     <div class="container mt-4">
-    <h2>My Campus Housing&nbsp;&nbsp;</h2>
+        <h2 th:text="#{housing.my.heading}">My Campus Housing</h2>
 
-    <div class="card mt-3" th:if="${myHousing != null}">
-        <div class="card-header">
-            <strong th:text="${myHousing.buildingName} + ' – Room ' + ${myHousing.roomNumber}">
-                Building / Room
-            </strong>
+        <!-- If the student has housing assigned -->
+        <div class="card mt-3" th:if="${myHousing != null}">
+            <div class="card-header">
+                <strong th:text="${myHousing.buildingName} + ' – ' + #{housing.my.roomLabel} + ' ' + ${myHousing.roomNumber}">
+                    Building / Room
+                </strong>
+            </div>
+            <div class="card-body">
+                <p>
+                    <strong th:text="#{housing.my.priceLabel}">Price per Semester:</strong>
+                    <span>
+            <span th:text="${myHousing.pricePerSemester}">400</span>
+            <span th:text="' ' + #{housing.currency}"> BGN</span>
+          </span>
+                </p>
+                <p>
+                    <strong th:text="#{housing.my.assignedToLabel}">Assigned to:</strong>
+                    <span th:text="${myHousing.studentUsername}">myUsername</span>
+                </p>
+            </div>
         </div>
-        <div class="card-body">
-            <p><strong>Price per Semester:</strong>
-                <span th:text="${myHousing.pricePerSemester} + ' BGN'">400 BGN</span>
-            </p>
-            <p>
-                <strong>Assigned to:</strong>
-                <span th:text="${myHousing.studentUsername}">myUsername</span>
-            </p>
-        </div>
-    </div>
 
-    <div class="alert alert-warning mt-3" th:if="${myHousing == null}">
-        You currently have no housing assigned. Please contact administration.
-    </div>
+        <!-- If no housing assigned -->
+        <div class="alert alert-warning mt-3"
+             th:if="${myHousing == null}"
+             th:text="#{housing.my.noneMessage}">
+            You currently have no housing assigned. Please contact administration.
+        </div>
     </div>
 </div>
 </html>

@@ -3,7 +3,7 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
         layout:decorate="~{layout}">
 <head>
-    <title>Club Create</title>
+    <title th:text="#{page.clubCreate}">Club Create</title>
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
@@ -33,8 +33,8 @@
                             <h2 class="card-title">About this Running club</h2>
                             <p class="card-text" th:text="${club.content}"></p>
                             <div th:if="${user.id} == ${club.createdBy.id}">
-                                <a class="btn btn-primary" th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}">Delete</a>
-                                <a class="btn btn-primary" th:href="@{/events/{clubId}/new(clubId=${club.id})}">Create Event</a>
+                                <a class="btn btn-primary" th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}" th:text="#{clubDetail.deleteButton}">Delete</a>
+                                <a class="btn btn-primary" th:href="@{/events/{clubId}/new(clubId=${club.id})}" th:text="#{clubDetail.createEventButton}">Create Event</a>
                             </div>
                         </div>
                     </div>
@@ -45,10 +45,10 @@
                             <div th:each="event :${club.events}" class="card mb-4">
                                 <a href="#!"><img class="card-img-top" th:src="${event.photoUrl}" alt="..." /></a>
                                 <div class="card-body">
-                                    <div class="small text-muted">January 1, 2023</div>
+                                    <div class="small text-muted" th:text="#{clubEvents.date}">January 1, 2023</div>
                                     <h2 th:text="${event.name}" class="card-title h4"></h2>
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" th:href="@{/events/{eventId}(eventId=${event.id})}">More</a>
+                                    <a class="btn btn-primary" th:href="@{/events/{eventId}(eventId=${event.id})}" th:text="#{clubEvents.moreButton}">More</a>
                                 </div>
                             </div >
                         </div>
@@ -84,16 +84,16 @@
 <!--                    </div>-->
                     <!-- Side widget-->
                     <div class="card mb-4">
-                        <div class="card-header">About Our Clubs</div>
-                        <div class="card-body">Across our university we run dozens of student clubs, from running to robotics.They’re open to everyone—no matter your skill level, you’ll find a place here. Check back often for new events, trainings, and meet-ups!</div>
+                        <div class="card-header" th:text="#{sidebar.aboutTitle}">About Our Clubs</div>
+                        <div class="card-body" th:text="#{sidebar.aboutText}">Across our university we run dozens of student clubs, from running to robotics.They’re open to everyone—no matter your skill level, you’ll find a place here. Check back often for new events, trainings, and meet-ups!</div>
                     </div>
                     <div class="card mb-4">
-                        <div class="card-header">Our Goals</div>
+                        <div class="card-header" th:text="#{sidebar.goalsTitle}">Our Goals</div>
                         <div class="card-body">
-                            - Have Fun<br>
-                            - Meet New People<br>
-                            - Learn New Skills<br>
-                            - Stay Focused and Motivated<br>
+                            <span th:text="#{sidebar.goal.fun}">Have Fun</span><br>
+                            <span th:text="#{sidebar.goal.meet}">Meet New People</span><br>
+                            <span th:text="#{sidebar.goal.learn}">Learn New Skills</span><br>
+                            <span th:text="#{sidebar.goal.motivated}">Stay Focused and Motivated</span><br>
                         </div>
                     </div>
                 </div>

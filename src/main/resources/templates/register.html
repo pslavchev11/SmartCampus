@@ -1,82 +1,109 @@
+<!DOCTYPE html>
 <html
-        xmlns:th="http://thymeleaf.org"
+        xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout}">
 <head>
-    <title>Register</title>
+    <title th:text="#{register.title}">Register</title>
 </head>
+
 <section layout:fragment="body">
-    <style>
-        .main {
-            padding: 0px 10px;
-        }
+    <!--
+      We give the container a minimum height so that its child .row
+      can center its contents vertically.
+    -->
+    <div class="container" style="min-height: 80vh;">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-md-6 col-sm-12">
+                <!-- If “fail” parameter was set (e.g., duplicate username/email) -->
+                <div th:if="${param.fail}" class="alert alert-danger"
+                     th:text="#{register.error.duplicate}">
+                    Username or email already exists
+                </div>
 
-        @media screen and (max-width: 450px) {
-            .login-form{
-                margin-top: 10%;
-            }
-            .register-form{
-                margin-top: 10%;
-            }
-        }
-        @media screen and (min-width: 768px){
-            .main{
-                margin-left: 30%;
-            }
+                <div class="register-form">
+                    <form method="post"
+                          th:action="@{/register/save}"
+                          th:object="${user}"
+                          role="form">
+                        <div class="form-group">
+                            <label th:for="username"
+                                   th:text="#{register.username.label}">
+                                Username
+                            </label>
+                            <input type="text"
+                                   th:field="*{username}"
+                                   class="form-control"
+                                   th:placeholder="#{register.username.placeholder}" />
+                            <p th:if="${#fields.hasErrors('username')}"
+                               class="text-danger"
+                               th:errors="*{username}">
+                                Username error
+                            </p>
+                        </div>
 
-            .sidenav{
-                width: 40%;
-                position: fixed;
-                z-index: 1;
-                top: 0;
-                left: 0;
-            }
-        }
-    </style>
-    <div class="main">
-        <div class="col-md-6 col-sm-12">
-            <div th:if="${param.fail}" class="alert alert-success">
-                Username or email already exists
-            </div>
-            <div class="login-form">
-                <form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
-                    <div class="form-group">
-                        <label>Username</label>
-                        <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Username"
-                                th:field="*{username}">
-                    </div>
-                    <p th:if="${#fields.hasErrors('username')}" class="text-danger"></p>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Email"
-                                th:field="*{email}">
-                    </div>
-                    <p th:if="${#fields.hasErrors('email')}" class="text-danger"></p>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input
-                                type="password"
-                                class="form-control"
-                                placeholder="Password"
-                                th:field="*{password}">
-                    </div>
-                    <p th:if="${#fields.hasErrors('password')}" class="text-danger"></p>
-                    <div class="form-group">
-                        <label >Role</label>
-                        <select class="form-control" th:field="*{role}">
-                            <option value="STUDENT">Student</option>
-                            <option value="TEACHER">Teacher</option>
-                            <option value="ADMIN">Admin</option>
-                        </select>
-                    </div>
-                    <button th:href="@{/register}" type="submit" class="btn btn-secondary">Register</button>
-                </form>
+                        <div class="form-group">
+                            <label th:for="email"
+                                   th:text="#{register.email.label}">
+                                Email
+                            </label>
+                            <input type="text"
+                                   th:field="*{email}"
+                                   class="form-control"
+                                   th:placeholder="#{register.email.placeholder}" />
+                            <p th:if="${#fields.hasErrors('email')}"
+                               class="text-danger"
+                               th:errors="*{email}">
+                                Email error
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="password"
+                                   th:text="#{register.password.label}">
+                                Password
+                            </label>
+                            <input type="password"
+                                   th:field="*{password}"
+                                   class="form-control"
+                                   th:placeholder="#{register.password.placeholder}" />
+                            <p th:if="${#fields.hasErrors('password')}"
+                               class="text-danger"
+                               th:errors="*{password}">
+                                Password error
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="role"
+                                   th:text="#{register.role.label}">
+                                Role
+                            </label>
+                            <select class="form-control"
+                                    th:field="*{role}"
+                                    id="role">
+                                <option value="STUDENT"
+                                        th:text="#{register.role.student}">
+                                    Student
+                                </option>
+                                <option value="TEACHER"
+                                        th:text="#{register.role.teacher}">
+                                    Teacher
+                                </option>
+                                <option value="ADMIN"
+                                        th:text="#{register.role.admin}">
+                                    Admin
+                                </option>
+                            </select>
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-secondary"
+                                th:text="#{register.button}">
+                            Register
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

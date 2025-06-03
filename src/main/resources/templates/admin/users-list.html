@@ -1,29 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{layout}">
+<head>
+    <title th:text="#{user.list.title}">User Management</title>
+</head>
+
 <body layout:fragment="body">
 <div class="container mt-4">
-    <h2>User Management</h2>
+    <h2 th:text="#{user.list.heading}">User Management</h2>
 
-    <h3>Teachers</h3>
+    <!-- Teachers Table -->
+    <h3 th:text="#{user.list.teachersHeading}">Teachers</h3>
     <table class="table table-striped mb-5">
-        <thead><tr><th>Username</th><th>Email</th></tr></thead>
+        <thead>
+        <tr>
+            <th th:text="#{user.table.username}">Username</th>
+            <th th:text="#{user.table.email}">Email</th>
+        </tr>
+        </thead>
         <tbody>
         <tr th:each="u : ${teachers}">
             <td th:text="${u.username}">username</td>
-            <td th:text="${u.email}">Email</td>
+            <td th:text="${u.email}">email@example.com</td>
         </tr>
         </tbody>
     </table>
 
-    <h3>Students</h3>
+    <!-- Students Table -->
+    <h3 th:text="#{user.list.studentsHeading}">Students</h3>
     <table class="table table-striped mb-5">
-        <thead><tr><th>Username</th><th>Email</th></tr></thead>
+        <thead>
+        <tr>
+            <th th:text="#{user.table.username}">Username</th>
+            <th th:text="#{user.table.email}">Email</th>
+        </tr>
+        </thead>
         <tbody>
         <tr th:each="u : ${students}">
             <td th:text="${u.username}">username</td>
-            <td th:text="${u.email}">Email</td>
+            <td th:text="${u.email}">email@example.com</td>
         </tr>
         </tbody>
     </table>

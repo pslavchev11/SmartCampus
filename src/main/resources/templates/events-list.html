@@ -1,47 +1,68 @@
 <html
-        xmlns:th="http://thymeleaf.org"
+        xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout}">
 <head>
-    <title>Event List</title>
+    <title th:text="#{page.eventList}">Event List</title>
 </head>
 <body class="d-flex flex-column h-100">
 <main class="flex-shrink-0">
-        <!-- Page Content-->
-        <section layout:fragment="body" class="py-5">
+    <section layout:fragment="body" class="py-5">
         <div class="container px-5 my-5">
             <div class="text-center mb-5">
-                <h1 class="fw-bolder">Find Events and Enjoy</h1>
-                <p class="lead fw-normal text-muted mb-0">Extracurricular Activities</p>
+                <h1 class="fw-bolder" th:text="#{eventList.title}">Find Events and Enjoy</h1>
+                <p class="lead fw-normal text-muted mb-0" th:text="#{eventList.subtitle}">
+                    Extracurricular Activities
+                </p>
             </div>
+
             <div class="row gx-5">
                 <div>
                     <form th:action="@{/events/search}" class="form-inline my-2 my-lg-0 mb-3">
-                        <input name="query" class="form-control mr-sm-2" type="search" placeholder="Search for events" aria-label="Search">
+                        <input
+                                name="query"
+                                class="form-control mr-sm-2"
+                                type="search"
+                                th:placeholder="#{eventList.search.placeholder}"
+                                th:attr="aria-label=#{eventList.search.ariaLabel}" />
                     </form>
                 </div>
+
                 <div class="row gx-5 mt-5">
-                    <div th:each="event :${events}" class="col-lg-4 mb-2">
+                    <div th:each="event : ${events}" class="col-lg-4 mb-2">
                         <div class="position-relative mb-3">
-    <!--                        <img class="img-fluid rounded-3 mb-3" th:src="${event.photoUrl}" alt="..."/>-->
-                            <div
-                                    class="ratio ratio-1x1 rounded-3 overflow-hidden mb-3 mx-auto"
-                            >
+                            <div class="ratio ratio-1x1 rounded-3 overflow-hidden mb-3 mx-auto">
                                 <img
                                         th:src="${event.photoUrl}"
-                                        alt="Event photo"
+                                        th:alt="#{eventList.eventPhotoAlt}"
                                         class="img-fluid w-100 h-100"
-                                        style="object-fit: cover;"
-                                />
+                                        style="object-fit: cover;" />
                             </div>
-                            <a th:text="${event.name}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"></a>
+                            <a
+                                    th:text="${event.name}"
+                                    class="h3 fw-bolder text-decoration-none link-dark stretched-link"
+                                    href="#!">
+                            </a>
                         </div>
-                        <a class="btn btn-primary" th:href="@{/events/{eventId}(eventId=${event.id})}" >View</a>
+
+                        <a
+                                class="btn btn-primary"
+                                th:href="@{/events/{eventId}(eventId=${event.id})}"
+                                th:text="#{eventList.viewButton}">
+                            View
+                        </a>
+
                         <div th:if="${user.id} == ${event.club.createdBy.id}">
-                            <a th:href="@{/events/{eventId}/edit(eventId=${event.id})}" class="btn btn-primary">Edit</a>
+                            <a
+                                    th:href="@{/events/{eventId}/edit(eventId=${event.id})}"
+                                    class="btn btn-primary"
+                                    th:text="#{eventList.editButton}">
+                                Edit
+                            </a>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
