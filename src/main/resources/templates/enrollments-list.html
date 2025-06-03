@@ -4,46 +4,42 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
-    <title>Enrollments</title>
+    <title th:text="#{enrollmentList.title}">My Enrollments</title>
 </head>
 
 <body layout:fragment="body">
 <div class="container mt-4">
-    <h2 class="mb-4">My Enrollments</h2>
+    <!-- Page header -->
+    <h2 class="mb-4" th:text="#{enrollmentList.heading}">My Enrollments</h2>
+
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Course</th>
-            <th>Date Enrolled</th>
-            <!-- Only teachers see the “Student” column -->
-<!--            <th sec:authorize="hasRole('TEACHER')">Student</th>-->
-<!--            <th>Actions</th>-->
+            <th th:text="#{enrollmentList.courseColumn}">Course</th>
+            <th th:text="#{enrollmentList.dateEnrolledColumn}">Date Enrolled</th>
+            <!-- Example: If you later want teachers to see a “Student” column, you can uncomment this.
+            <th sec:authorize="hasRole('TEACHER')" th:text="#{enrollmentList.studentColumn}">Student</th>
+            -->
         </tr>
         </thead>
         <tbody>
         <tr th:each="enr : ${enrollments}">
-            <!-- Link to course‐detail page -->
+            <!-- Course name links to course detail -->
             <td>
                 <a th:href="@{/courses/{id}(id=${enr.courseId})}"
                    th:text="${enr.courseName}">Course Name</a>
             </td>
-            <!-- Format LocalDate -->
+            <!-- Format the date the student enrolled -->
             <td th:text="${#temporals.format(enr.dateAwarded, 'yyyy-MM-dd')}">
                 2025-05-12
             </td>
-<!--            &lt;!&ndash; Teachers see which student this is &ndash;&gt;-->
-<!--            <td sec:authorize="hasRole('TEACHER')"-->
-<!--                th:text="${enr.studentUsername}">-->
-<!--                studentUsername-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                &lt;!&ndash; Teachers can grade &ndash;&gt;-->
-<!--                <a sec:authorize="hasRole('TEACHER')"-->
-<!--                   class="btn btn-sm btn-primary"-->
-<!--                   th:href="@{/grades/new(courseId=${enr.courseId},studentId=${enr.studentId})}">-->
-<!--                    Grade-->
-<!--                </a>-->
-<!--            </td>-->
+
+            <!-- Uncomment if teachers need to see which student:
+            <td sec:authorize="hasRole('TEACHER')"
+                th:text="${enr.studentUsername}">
+              studentUsername
+            </td>
+            -->
         </tr>
         </tbody>
     </table>

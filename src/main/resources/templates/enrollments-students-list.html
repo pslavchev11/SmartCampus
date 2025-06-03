@@ -1,60 +1,82 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
-    <title th:text="'Enrolled in ' + ${course.name}">Course Roster</title>
+    <title th:text="#{roster.titlePrefix} + ' ' + ${course.name}">Roster</title>
 </head>
 <body layout:fragment="body">
 <div class="container mt-4">
-    <h2 th:text="'Roster for ' + ${course.name}">Roster</h2>
+    <!-- Page heading: “Roster for <course name>” -->
+    <h2 th:text="#{roster.headingPrefix} + ' ' + ${course.name}">
+        Roster for Course
+    </h2>
+
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>Student</th>
-<!--            <th>Date Enrolled</th>-->
-            <th>Grade</th>
-            <th>Type of Grade</th>
-            <th>Grade Date</th>
-            <th>Endorsement</th>
-            <th>Action</th>
+            <th th:text="#{roster.studentColumn}">Student</th>
+            <!--<th th:text="#{roster.dateEnrolledColumn}">Date Enrolled</th>-->
+            <th th:text="#{roster.gradeColumn}">Grade</th>
+            <th th:text="#{roster.gradeTypeColumn}">Type of Grade</th>
+            <th th:text="#{roster.gradeDateColumn}">Grade Date</th>
+            <th th:text="#{roster.endorsementColumn}">Endorsement</th>
+            <th th:text="#{roster.actionColumn}">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="enr : ${roster}">
             <td th:text="${enr.studentUsername}">studentUsername</td>
-<!--            <td th:text="${#temporals.format(enr.dateAwarded,'yyyy-MM-dd')}">-->
-<!--                2025-05-14-->
-<!--            </td>-->
+            <!--
+            <td th:text="${#temporals.format(enr.dateAwarded,'yyyy-MM-dd')}">
+              2025-05-14
+            </td>
+            -->
             <td th:text="${enr.grade != null ? enr.grade : '—'}">—</td>
             <td th:text="${enr.typeOfGrade != null ? enr.typeOfGrade : '—'}">—</td>
             <td th:text="${enr.gradeDateAwarded != null
-                 ? #temporals.format(enr.gradeDateAwarded,'yyyy-MM-dd')
-                 : '—'}">
+                       ? #temporals.format(enr.gradeDateAwarded,'yyyy-MM-dd')
+                       : '—'}">
+                —
             </td>
             <td th:text="${enr.endorsement != null ? enr.endorsement : '—'}">—</td>
 
             <td>
+                <!-- If not yet graded, show “Grade” button -->
                 <a th:if="${enr.grade == null}"
                    class="btn btn-sm btn-primary"
-                   th:href="@{/grades/new(courseId=${course.id},studentId=${enr.studentId})}">
+                   th:href="@{/grades/new(courseId=${course.id},studentId=${enr.studentId})}"
+                   th:text="#{roster.gradeButton}">
                     Grade
                 </a>
+
+                <!-- If already graded, show disabled “Already Graded” -->
                 <button th:if="${enr.grade != null}"
                         class="btn btn-sm btn-secondary"
-                        disabled>
+                        disabled
+                        th:text="#{roster.alreadyGradedButton}">
                     Already Graded
                 </button>
+
+                <!-- If there is a grade record, show an “Edit” link -->
                 <a th:if="${enr.gradeId != null}"
                    class="btn btn-sm btn-secondary"
-                   th:href="@{/grades/{id}/edit(id=${enr.gradeId})}">
+                   th:href="@{/grades/{id}/edit(id=${enr.gradeId})}"
+                   th:text="#{roster.editButton}">
                     Edit
                 </a>
             </td>
         </tr>
         </tbody>
     </table>
-    <a th:href="@{/courses/{id}(id=${course.id})}" class="btn btn-secondary">Back to Course</a>
+
+    <!-- Back to the course detail page -->
+    <a th:href="@{/courses/{id}(id=${course.id})}"
+       class="btn btn-secondary"
+       th:text="#{roster.backButton}">
+        Back to Course
+    </a>
 </div>
 </body>
 </html>

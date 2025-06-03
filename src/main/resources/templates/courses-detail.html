@@ -1,85 +1,124 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{layout}">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="~{layout}">
 <head>
+    <!-- Title: “<courseName> – Smart Campus” via layout:title-pattern -->
     <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">
         <span th:text="${course.name}">Course Name</span>
     </title>
 </head>
 <body layout:fragment="body">
 <div class="container py-4">
+    <!-- Course image, if present -->
     <div class="mb-4 text-center">
         <img
                 th:if="${course.photoUrl}"
                 th:src="${course.photoUrl}"
-                alt="Image for [[${course.name}]]"
+                th:alt="#{courseDetail.photoAlt(${course.name})}"
                 class="img-fluid rounded"
-                style="max-height: 300px; object-fit: cover;"
-        />
+                style="max-height: 300px; object-fit: cover;" />
     </div>
 
+    <!-- Title + Edit/Delete (if creator) -->
     <div class="d-flex align-items-center justify-content-between mb-4">
         <h1 th:text="${course.name}">Course Name</h1>
 
         <div th:if="${user.id == course.createdById}" class="d-flex align-items-center gap-2 mb-4">
-            <a th:href="@{/courses/{id}/edit(id=${course.id})}"
-               class="btn btn-outline-primary me-2">
+            <a
+                    th:href="@{/courses/{id}/edit(id=${course.id})}"
+                    class="btn btn-outline-primary me-2"
+                    th:text="#{courseDetail.editButton}">
                 Edit
             </a>
-            <a th:href="@{/courses/{id}/delete(id=${course.id})}"
-               class="btn btn-outline-danger">
+            <a
+                    th:href="@{/courses/{id}/delete(id=${course.id})}"
+                    class="btn btn-outline-danger"
+                    th:text="#{courseDetail.deleteButton}">
                 Delete
             </a>
         </div>
     </div>
+
+    <!-- Teacher -->
     <p>
-        <strong>Teacher:</strong>
+        <strong th:text="#{courseDetail.teacherPrefix}">Teacher:</strong>
         <span th:text="${course.createdByUsername}">teacherUsername</span>
     </p>
-    <p><strong>Description:</strong> <span th:text="${course.description}">…</span></p>
+
+    <!-- Description -->
     <p>
-        <strong>When:</strong>
+        <strong th:text="#{courseDetail.descriptionPrefix}">Description:</strong>
+        <span th:text="${course.description}">…</span>
+    </p>
+
+    <!-- When (start and end times) -->
+    <p>
+        <strong th:text="#{courseDetail.whenPrefix}">When:</strong>
         <span th:text="${#temporals.format(course.startTime, 'HH:mm')}"></span>
         –
-        <span th:text="${#temporals.format(course.endTime,   'HH:mm')}"></span>
+        <span th:text="${#temporals.format(course.endTime, 'HH:mm')}"></span>
     </p>
+
+    <!-- Semester (start, end, dayOfWeek) -->
     <p>
-        <strong>Semester:</strong>
-        From
+        <strong th:text="#{courseDetail.semesterPrefix}">Semester:</strong>
+        <span th:text="#{courseDetail.semesterFrom}">From</span>
         <span th:text="${course.semesterStart}"></span>
-        to
+        <span th:text="#{courseDetail.semesterTo}">to</span>
         <span th:text="${course.semesterEnd}"></span>
-        on
+        <span th:text="#{courseDetail.on}">on</span>
         <span th:text="${{'Mondays','Tuesdays','Wednesdays','Thursdays','Fridays','Saturdays','Sundays'}[course.dayOfWeek - 1]}"></span>
     </p>
 
-
+    <!-- Action buttons -->
     <div class="d-flex gap-2 mt-4">
-    <!-- somewhere in your course‐detail template -->
-        <form th:action="@{/courses/{id}/enroll(id=${course.id})}"
-              method="post"
-              class="d-inline"
-              sec:authorize="hasRole('STUDENT')"
-              th:if="${not alreadyEnrolled}">
-            <button type="submit" class="btn btn-success">
+        <!-- Enroll (students only, if not already enrolled) -->
+        <form
+                th:action="@{/courses/{id}/enroll(id=${course.id})}"
+                method="post"
+                class="d-inline"
+                sec:authorize="hasRole('STUDENT')"
+                th:if="${not alreadyEnrolled}">
+            <button
+                    type="submit"
+                    class="btn btn-success"
+                    th:text="#{courseDetail.enrollButton}">
                 Enroll
             </button>
         </form>
 
-        <div sec:authorize="hasRole('STUDENT')"
-             th:if="${alreadyEnrolled}">
-            <button class="btn btn-secondary" disabled>Already Enrolled</button>
+        <!-- “Already Enrolled” if the student is already in -->
+        <div
+                sec:authorize="hasRole('STUDENT')"
+                th:if="${alreadyEnrolled}">
+            <button
+                    class="btn btn-secondary"
+                    disabled
+                    th:text="#{courseDetail.alreadyEnrolledButton}">
+                Already Enrolled
+            </button>
         </div>
 
+        <!-- “View Roster” (teachers only) -->
         <div sec:authorize="hasRole('TEACHER')">
-            <a class="btn btn-primary"
-               th:href="@{/courses/{id}/students(id=${course.id})}">
+            <a
+                    class="btn btn-primary"
+                    th:href="@{/courses/{id}/students(id=${course.id})}"
+                    th:text="#{courseDetail.viewRosterButton}">
                 View Roster
             </a>
         </div>
 
-        <a th:href="@{/courses}" class="btn btn-secondary">Back to Calendar</a>
+        <!-- “Back to Calendar” -->
+        <a
+                th:href="@{/courses}"
+                class="btn btn-secondary"
+                th:text="#{courseDetail.backButton}">
+            Back to Calendar
+        </a>
     </div>
 </div>
 </body>

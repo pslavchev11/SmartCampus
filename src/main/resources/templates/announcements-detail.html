@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
 <head>
     <title th:text="${announcement.title}">Announcement Detail</title>
 </head>
@@ -11,59 +12,76 @@
         <div class="container">
 
             <div class="card mx-auto" style="max-width:600px;">
-                <!-- Title + timestamps -->
+                <!-- Title + “Created:” timestamp -->
                 <div class="card-header d-flex justify-content-between align-items-baseline">
                     <h4 class="mb-0" th:text="${announcement.title}">Title</h4>
                     <small class="text-muted">
-                        Created: <span th:text="${#temporals.format(announcement.createdOn, 'MMM d, yyyy h:mma')}">…</span>
+                        <span th:text="#{announcementDetail.createdPrefix}">Created:</span>
+                        <span th:text="${#temporals.format(announcement.createdOn, 'MMM d, yyyy h:mma')}">
+                May 12, 2025 5:45pm
+              </span>
                     </small>
                 </div>
 
                 <div class="card-body">
                     <!-- Optional image -->
                     <div th:if="${announcement.photoUrl}">
-                        <img th:src="${announcement.photoUrl}"
-                             class="img-fluid rounded mb-3"
-                             alt="Announcement image">
+                        <img
+                                th:src="${announcement.photoUrl}"
+                                class="img-fluid rounded mb-3"
+                                th:alt="#{announcementDetail.photoAlt}" />
                     </div>
 
                     <!-- Full content -->
                     <p th:text="${announcement.content}">Full announcement text…</p>
 
-                    <!-- Start / End times -->
+                    <!-- “Starts:” / “Ends:” -->
                     <dl class="row mb-0">
-                        <dt class="col-sm-4">Starts:</dt>
+                        <dt class="col-sm-4" th:text="#{announcementDetail.startsPrefix}">Starts:</dt>
                         <dd class="col-sm-8"
                             th:text="${#temporals.format(announcement.startTime, 'MMM d, yyyy h:mma')}">
                             May 12, 2025 5:45pm
                         </dd>
 
-                        <dt class="col-sm-4">Ends:</dt>
+                        <dt class="col-sm-4" th:text="#{announcementDetail.endsPrefix}">Ends:</dt>
                         <dd class="col-sm-8"
-                            th:text="${#temporals.format(announcement.endTime,   'MMM d, yyyy h:mma')}">
+                            th:text="${#temporals.format(announcement.endTime, 'MMM d, yyyy h:mma')}">
                             May 12, 2025 7:00pm
                         </dd>
                     </dl>
 
-                    <!-- Last updated + creator -->
+                    <!-- “Last updated:” + timestamp -->
                     <div class="mt-3">
                         <small class="text-muted">
-                            Last updated:
-                            <span th:text="${#temporals.format(announcement.updatedOn, 'MMM d, yyyy h:mma')}">…</span>
+                            <span th:text="#{announcementDetail.lastUpdatedPrefix}">Last updated:</span>
+                            <span th:text="${#temporals.format(announcement.updatedOn, 'MMM d, yyyy h:mma')}">
+                  May 12, 2025 6:30pm
+                </span>
                         </small>
                     </div>
 
                     <!-- Back / Edit / Delete buttons -->
                     <div class="mt-4">
-                        <a th:href="@{/announcements}" class="btn btn-secondary">← Back to Announcements</a>
+                        <a th:href="@{/announcements}"
+                           class="btn btn-secondary"
+                           th:text="#{announcementDetail.backButton}">
+                            ← Back to Announcements
+                        </a>
 
                         <span th:if="${user != null and user.id == announcement.createdBy.id}">
-              <a th:href="@{/announcements/{id}/edit(id=${announcement.id})}"
-                 class="btn btn-outline-primary me-2">Edit</a>
-              <a th:href="@{/announcements/{id}/delete(id=${announcement.id})}"
-                 class="btn btn-outline-danger">Delete</a>
-            </span>
+                <a th:href="@{/announcements/{id}/edit(id=${announcement.id})}"
+                   class="btn btn-outline-primary me-2"
+                   th:text="#{announcementDetail.editButton}">
+                  Edit
+                </a>
+                <a th:href="@{/announcements/{id}/delete(id=${announcement.id})}"
+                   class="btn btn-outline-danger"
+                   th:text="#{announcementDetail.deleteButton}">
+                  Delete
+                </a>
+              </span>
                     </div>
+
                 </div>
             </div>
 

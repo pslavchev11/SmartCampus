@@ -7,18 +7,19 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Campus Housing (Admin)</title>
-    <!-- You can add page‐specific <link> or <script> tags here if needed -->
+    <title th:text="#{housing.list.title}">Campus Housing (Admin)</title>
 </head>
 
-<!-- THIS DIV must match layout.html’s `layout:fragment="body"` -->
+<!-- must match layout.html’s `layout:fragment="body"` -->
 <div layout:fragment="body">
     <div class="container mt-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <h2>Housing &nbsp; </h2>
+            <h2 th:text="#{housing.list.heading}">Housing</h2>
 
             <div sec:authorize="hasRole('ADMIN')" class="mb-3">
-                <a class="btn btn-sm btn-outline-primary" th:href="@{/housing/new}">
+                <a class="btn btn-sm btn-outline-primary"
+                   th:href="@{/housing/new}"
+                   th:text="#{housing.list.createButton}">
                     Create New Housing
                 </a>
             </div>
@@ -27,25 +28,36 @@
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
-                <th>Building</th>
-                <th>Room</th>
-                <th>Price / Semester</th>
-                <th>Assigned Student</th>
-                <th sec:authorize="hasRole('ADMIN')">Actions</th>
+                <th th:text="#{housing.table.header.building}">Building</th>
+                <th th:text="#{housing.table.header.room}">Room</th>
+                <th th:text="#{housing.table.header.price}">Price / Semester</th>
+                <th th:text="#{housing.table.header.assignedStudent}">Assigned Student</th>
+                <th sec:authorize="hasRole('ADMIN')"
+                    th:text="#{housing.table.header.actions}">
+                    Actions
+                </th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="h : ${housings}">
                 <td th:text="${h.buildingName}">North Hall</td>
                 <td th:text="${h.roomNumber}">101</td>
-                <td th:text="${h.pricePerSemester + ' BGN'}">400 BGN</td>
+                <td>
+            <span th:text="${h.pricePerSemester} + ' ' + #{housing.currency}">
+              400 BGN
+            </span>
+                </td>
                 <td th:text="${h.studentUsername != null ? h.studentUsername : '—'}">—</td>
                 <td sec:authorize="hasRole('ADMIN')">
                     <a th:href="@{/housing/{id}/edit(id=${h.id})}"
-                       class="btn btn-outline-primary me-2">Edit</a>
+                       class="btn btn-outline-primary me-2"
+                       th:text="#{housing.table.editButton}">
+                        Edit
+                    </a>
                     <a th:href="@{/housing/{id}/delete(id=${h.id})}"
                        class="btn btn-outline-danger"
-                       onclick="return confirm('Delete this housing?');">
+                       th:onclick="|return confirm('#{housing.dialog.deleteConfirm}');|"
+                       th:text="#{housing.table.deleteButton}">
                         Delete
                     </a>
                 </td>

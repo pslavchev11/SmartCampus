@@ -1,70 +1,50 @@
+<!DOCTYPE html>
 <html
-        xmlns:th="http://thymeleaf.org"
+        xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout}">
 <head>
-    <title>Register</title>
+    <title th:text="#{login.title}">Login</title>
 </head>
+
+<!--
+  This fragment will be inserted into your “layout” template’s <body> at the “body” fragment.
+-->
 <section layout:fragment="body">
-    <style>
-        .main {
-            padding: 0px 10px;
-        }
+    <div class="container" style="min-height: 80vh;">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-md-6 col-sm-12">
+                <!-- If Spring Security passed an error parameter -->
+                <div th:if="${param.error}" class="alert alert-danger"
+                     th:text="#{login.error}">Invalid username or password.</div>
+                <!-- If Spring Security passed a logout parameter -->
+                <div th:if="${param.logout}" class="alert alert-success"
+                     th:text="#{login.loggedOut}">You have been logged out.</div>
 
-        @media screen and (max-width: 450px) {
-            .login-form{
-                margin-top: 10%;
-            }
-            .register-form{
-                margin-top: 10%;
-            }
-        }
-        @media screen and (min-width: 768px){
-            .main{
-                margin-left: 30%;
-            }
+                <div class="login-form">
+                    <form method="post" th:action="@{/login}" role="form">
+                        <div class="form-group">
+                            <label th:for="username" th:text="#{login.username.label}">Username</label>
+                            <input id="username"
+                                   name="username"
+                                   type="text"
+                                   class="form-control"
+                                   th:placeholder="#{login.username.placeholder}" />
+                        </div>
 
-            .sidenav{
-                width: 40%;
-                position: fixed;
-                z-index: 1;
-                top: 0;
-                left: 0;
-            }
-        }
-    </style>
-    <div class="main">
-        <div class="col-md-6 col-sm-12">
-            <div th:if="${param.error}" class="alert alert-success">
-                Invalid username or password.
-            </div>
-            <div th:if="${param.logout}" class="alert alert-success">
-                You have been logged out.
-            </div>
-            <div class="login-form">
-                <form method="post" role="form" th:action="@{/login}" >
-                    <div class="form-group">
-                        <label>Username</label>
-                        <input
-                                id="username"
-                                type="text"
-                                class="form-control"
-                                placeholder="Username"
-                                name="username"
-                                >
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input
-                                id="password"
-                                type="password"
-                                class="form-control"
-                                placeholder="Password"
-                                name="password"
-                                >
-                    </div>
-                    <button type="submit" value="Log in" class="btn btn-secondary">Login</button>
-                </form>
+                        <div class="form-group">
+                            <label th:for="password" th:text="#{login.password.label}">Password</label>
+                            <input id="password"
+                                   name="password"
+                                   type="password"
+                                   class="form-control"
+                                   th:placeholder="#{login.password.placeholder}" />
+                        </div>
+
+                        <button type="submit" class="btn btn-secondary"
+                                th:text="#{login.button}">Login</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
