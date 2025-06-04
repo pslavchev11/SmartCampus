@@ -49,7 +49,7 @@ public class AuthController {
         }
 
         UserEntity existingUniqueNumber = userService.findByUniqueNumber(user.getUniqueNumber());
-        if(existingUniqueNumber != null && existingUniqueNumber.getUniqueNumber() != null && !existingUniqueNumber.getUniqueNumber().toString().isEmpty()){
+        if(existingUniqueNumber != null){
             return "redirect:/register?fail";
         }
 
