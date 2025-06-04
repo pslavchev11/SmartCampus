@@ -21,9 +21,11 @@ public class AdminController {
     @GetMapping("/admin/users")
     public String listUsers(Model model) {
         // fetch two separate lists
+        List<UserDto> admins = userService.findByRole("ADMIN");
         List<UserDto> students = userService.findByRole("STUDENT");
         List<UserDto> teachers = userService.findByRole("TEACHER");
 
+        model.addAttribute("admins", admins);
         model.addAttribute("students", students);
         model.addAttribute("teachers", teachers);
         return "admin/users-list";

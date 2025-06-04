@@ -12,18 +12,39 @@
 <div class="container mt-4">
     <h2 th:text="#{user.list.heading}">User Management</h2>
 
+    <!-- Admins Table-->
+    <h3 th:text="#{user.list.adminsHeading}">Admins</h3>
+    <table class="table table-striped mb-5">
+        <thead>
+        <tr>
+            <th th:text="#{user.table.username}">Username</th>
+            <th th:text="#{user.table.uniqueNumber}">Unique Number</th>
+            <th th:text="#{user.table.email}">Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="u : ${admins}">
+            <td th:text="${u.username}">username</td>
+            <td th:text="${u.uniqueNumber}">123456</td>
+            <td th:text="${u.email}">email@example.com</td>
+        </tr>
+        </tbody>
+    </table>
+
     <!-- Teachers Table -->
     <h3 th:text="#{user.list.teachersHeading}">Teachers</h3>
     <table class="table table-striped mb-5">
         <thead>
         <tr>
             <th th:text="#{user.table.username}">Username</th>
+            <th th:text="#{user.table.uniqueNumber}">Unique Number</th>
             <th th:text="#{user.table.email}">Email</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="u : ${teachers}">
             <td th:text="${u.username}">username</td>
+            <td th:text="${u.uniqueNumber}">123456</td>
             <td th:text="${u.email}">email@example.com</td>
         </tr>
         </tbody>
@@ -35,12 +56,14 @@
         <thead>
         <tr>
             <th th:text="#{user.table.username}">Username</th>
+            <th th:text="#{user.table.uniqueNumber}">Unique Number</th>
             <th th:text="#{user.table.email}">Email</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="u : ${students}">
             <td th:text="${u.username}">username</td>
+            <td th:text="${u.uniqueNumber}">123456</td>
             <td th:text="${u.email}">email@example.com</td>
         </tr>
         </tbody>

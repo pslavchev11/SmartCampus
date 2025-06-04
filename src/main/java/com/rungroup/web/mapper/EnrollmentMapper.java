@@ -11,6 +11,7 @@ public class EnrollmentMapper {
         dto.setCourseName(e.getCourse().getName());
         dto.setStudentId(e.getStudent().getId());
         dto.setStudentUsername(e.getStudent().getUsername());
+        dto.setUniqueNumber(e.getStudent().getUniqueNumber());
         dto.setDateAwarded(e.getDateAwarded());
         return dto;
     }

@@ -21,9 +21,9 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(length = 2000)
+    @Column(length = 5000)
     private String description;
-    @Column(length = 1000)
+    @Column(length = 5000)
     private String photoUrl;
     private LocalTime startTime;
     private LocalTime endTime;

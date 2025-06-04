@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
         UserEntity user = new UserEntity();
         user.setUsername(registrationDto.getUsername());
         user.setEmail(registrationDto.getEmail());
+        user.setUniqueNumber(registrationDto.getUniqueNumber());
         user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
         Role role = roleRepository.findByName(registrationDto.getRole());
         user.setRoles(Arrays.asList(role));
@@ -53,6 +54,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public UserEntity findByUniqueNumber(Integer uniqueNumber) {
+        return userRepository.findByUniqueNumber(uniqueNumber);
     }
 
     @Override

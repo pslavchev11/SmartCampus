@@ -12,6 +12,7 @@ public class EnrollmentDto {
     private String courseName;
     private Long studentId;
     private String studentUsername;
+    private Integer uniqueNumber;
 
     private Double grade;
     private LocalDate gradeDateAwarded;
