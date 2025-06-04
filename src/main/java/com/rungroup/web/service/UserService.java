@@ -14,6 +14,8 @@ public interface UserService {
 
     UserEntity findByUsername(String username);
 
+    UserEntity findByUniqueNumber(Integer uniqueNumber);
+
     Optional<UserEntity> findById(Long studentId);
 
     List<UserDto> findByRole(String roleName);

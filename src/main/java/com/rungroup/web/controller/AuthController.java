@@ -48,6 +48,11 @@ public class AuthController {
             return "redirect:/register?fail";
         }
 
+        UserEntity existingUniqueNumber = userService.findByUniqueNumber(user.getUniqueNumber());
+        if(existingUniqueNumber != null && existingUniqueNumber.getUniqueNumber() != null && !existingUniqueNumber.getUniqueNumber().toString().isEmpty()){
+            return "redirect:/register?fail";
+        }
+
 
         if(result.hasErrors()){
             model.addAttribute("user", user);

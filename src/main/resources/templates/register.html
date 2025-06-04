@@ -26,7 +26,7 @@
                           th:action="@{/register/save}"
                           th:object="${user}"
                           role="form">
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label th:for="username"
                                    th:text="#{register.username.label}">
                                 Username
@@ -42,7 +42,7 @@
                             </p>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label th:for="email"
                                    th:text="#{register.email.label}">
                                 Email
@@ -58,7 +58,7 @@
                             </p>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label th:for="password"
                                    th:text="#{register.password.label}">
                                 Password
@@ -74,7 +74,7 @@
                             </p>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label th:for="role"
                                    th:text="#{register.role.label}">
                                 Role
@@ -97,6 +97,17 @@
                             </select>
                         </div>
 
+                        <div class="form-group mb-3">
+                            <label th:for="uniqueNumber"
+                                   th:text="#{register.uniqueNumber.label}">
+                                Unique Number
+                            </label>
+                            <input type="text"
+                                   th:field="*{uniqueNumber}"
+                                   class="form-control"
+                                   th:placeholder="#{register.uniqueNumber.placeholder}" />
+                        </div>
+
                         <button type="submit"
                                 class="btn btn-secondary"
                                 th:text="#{register.button}">
@@ -109,3 +120,4 @@
     </div>
 </section>
 </html>
+

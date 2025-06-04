@@ -17,6 +17,7 @@
         <thead>
         <tr>
             <th th:text="#{roster.studentColumn}">Student</th>
+            <th th:text="#{roster.uniqueNumberColumn}">UN</th>
             <!--<th th:text="#{roster.dateEnrolledColumn}">Date Enrolled</th>-->
             <th th:text="#{roster.gradeColumn}">Grade</th>
             <th th:text="#{roster.gradeTypeColumn}">Type of Grade</th>
@@ -33,6 +34,7 @@
               2025-05-14
             </td>
             -->
+            <td th:text="${enr.uniqueNumber}">-</td>
             <td th:text="${enr.grade != null ? enr.grade : '—'}">—</td>
             <td th:text="${enr.typeOfGrade != null ? enr.typeOfGrade : '—'}">—</td>
             <td th:text="${enr.gradeDateAwarded != null

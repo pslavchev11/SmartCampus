@@ -9,6 +9,7 @@ public class UserMapper {
     public static UserDto mapToUserDto(UserEntity user) {
         return UserDto.builder()
                 .id(user.getId())
+                .uniqueNumber(user.getUniqueNumber())
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .build();
