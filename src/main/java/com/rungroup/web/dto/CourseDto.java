@@ -38,4 +38,5 @@ public class CourseDto {
     private Integer dayOfWeek;
     private Long createdById;
     private String createdByUsername;
+    private String createdByEmail;
 }

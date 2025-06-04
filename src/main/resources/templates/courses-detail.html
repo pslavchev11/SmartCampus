@@ -47,6 +47,11 @@
         <strong th:text="#{courseDetail.teacherPrefix}">Teacher:</strong>
         <span th:text="${course.createdByUsername}">teacherUsername</span>
     </p>
+    <!-- Teacher's Email-->
+    <p>
+        <strong th:text="#{courseDetail.teacherEmail}">Email of the teacher:</strong>
+        <span th:text="${course.createdByEmail}">teacherEmail</span>
+    </p>
 
     <!-- Description -->
     <p>
