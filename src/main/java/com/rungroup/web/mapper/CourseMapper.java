@@ -18,6 +18,7 @@ public class CourseMapper {
                 .dayOfWeek(course.getDayOfWeek())
                 .createdById(course.getCreatedBy().getId())
                 .createdByUsername(course.getCreatedBy().getUsername())
+                .createdByEmail(course.getCreatedBy().getEmail())
                 .build();
 
         return courseDto;
