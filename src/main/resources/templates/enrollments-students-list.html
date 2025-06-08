@@ -23,6 +23,7 @@
             <th th:text="#{roster.gradeTypeColumn}">Type of Grade</th>
             <th th:text="#{roster.gradeDateColumn}">Grade Date</th>
             <th th:text="#{roster.endorsementColumn}">Endorsement</th>
+            <th th:text="#{roster.reasonEndorsementColumn}">Reason for No Endorsement</th>
             <th th:text="#{roster.actionColumn}">Action</th>
         </tr>
         </thead>
@@ -43,6 +44,7 @@
                 —
             </td>
             <td th:text="${enr.endorsement != null ? enr.endorsement : '—'}">—</td>
+            <td th:text="${enr.reasonForNoEndorsement != null ? enr.reasonForNoEndorsement : '—'}">—</td>
 
             <td>
                 <!-- If not yet graded, show “Grade” button -->

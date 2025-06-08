@@ -20,4 +20,5 @@ public class EnrollmentDto {
 
     private String typeOfGrade;
     private String endorsement;
+    private String reasonForNoEndorsement;
 }

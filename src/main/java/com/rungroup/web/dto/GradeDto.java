@@ -22,5 +22,5 @@ public class GradeDto {
     private String typeOfGrade;
     private LocalDate dateAwarded;
     private String endorsement;
-
+    private String reasonForNoEndorsement;
 }

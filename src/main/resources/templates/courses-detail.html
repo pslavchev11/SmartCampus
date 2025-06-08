@@ -108,7 +108,8 @@
         </div>
 
         <!-- “View Roster” (teachers only) -->
-        <div sec:authorize="hasRole('TEACHER')">
+        <div sec:authorize="hasRole('TEACHER')"
+             th:if="${user.id == course.createdById}">
             <a
                     class="btn btn-primary"
                     th:href="@{/courses/{id}/students(id=${course.id})}"

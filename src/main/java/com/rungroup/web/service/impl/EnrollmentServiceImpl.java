@@ -53,6 +53,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                                 dto.setGradeDateAwarded(grade.getDateAwarded());
                                 dto.setTypeOfGrade(grade.getTypeOfGrade());
                                 dto.setEndorsement(grade.getEndorsement());
+                                dto.setReasonForNoEndorsement(grade.getReasonForNoEndorsement());
                             });
                     return dto;
                 })
