@@ -101,7 +101,7 @@
         </div>
 
         <!-- Reason if No Endorsement -->
-        <div class="form-group mb-3 ">
+        <div class="form-group mb-3" th:if="${endorsement == 'No'}">
             <label for="reasonForNoEndorsement"><strong th:text="#{grades.endorsementReason}">Reason if No Endorsement</strong></label>
             <input
                     type="text"
