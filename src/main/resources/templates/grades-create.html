@@ -100,6 +100,21 @@
             </select>
         </div>
 
+        <!-- Reason if No Endorsement -->
+        <div class="form-group mb-3 ">
+            <label for="reasonForNoEndorsement"><strong th:text="#{grades.endorsementReason}">Reason if No Endorsement</strong></label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="reasonForNoEndorsement"
+                    name="reasonForNoEndorsement"
+                    th:field="*{reasonForNoEndorsement}"
+                    th:placeholder="#{grades.endorsementReasonPlaceholder}" />
+            <p th:if="${#fields.hasErrors('reasonForNoEndorsement')}"
+               class="text-danger"
+               th:errors="*{reasonForNoEndorsement}"></p>
+        </div>
+
         <!-- Save / Cancel buttons -->
         <button type="submit"
                 class="btn btn-primary"

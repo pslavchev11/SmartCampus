@@ -20,6 +20,7 @@ public class GradeMapper {
         dto.setTypeOfGrade(g.getTypeOfGrade());
         dto.setDateAwarded(g.getDateAwarded());
         dto.setEndorsement(g.getEndorsement());
+        dto.setReasonForNoEndorsement(g.getReasonForNoEndorsement());
         return dto;
     }
     public static Grade mapToGrade(GradeDto dto, Course course, UserEntity student) {
@@ -30,6 +31,7 @@ public class GradeMapper {
                 .grade(dto.getGrade())
                 .typeOfGrade(dto.getTypeOfGrade())
                 .endorsement(dto.getEndorsement())
+                .reasonForNoEndorsement(dto.getReasonForNoEndorsement())
                 .dateAwarded(dto.getDateAwarded() != null
                         ? dto.getDateAwarded()
                         : LocalDate.now())

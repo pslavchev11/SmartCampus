@@ -22,8 +22,9 @@ public class Grade {
     private Long id;
     private Double grade;
     private LocalDate dateAwarded;
-    private String typeOfGrade; // e.g., "Exam", "Assignment", "Project"
-    private String endorsement; // e.g., "Excellent", "Good", "Needs Improvement"
+    private String typeOfGrade;
+    private String endorsement;
+    private String reasonForNoEndorsement;
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
