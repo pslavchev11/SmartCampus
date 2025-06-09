@@ -47,6 +47,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUser(RegistrationDto dto) {
+        UserEntity user = userRepository.findById(dto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + dto.getId()));
+        user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
+        user.setUniqueNumber(dto.getUniqueNumber());
+//        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        Role role = roleRepository.findByName(dto.getRole());
+
+        userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(Long Id) {
+        userRepository.deleteById(Id);
+    }
+
+    @Override
     public UserEntity findByEmail(String email) {
         return userRepository.findByEmail(email);
     }

@@ -10,6 +10,10 @@ import java.util.Optional;
 public interface UserService {
     void saveUser(RegistrationDto registrationDto);
 
+    void updateUser(RegistrationDto registrationDto);
+
+    void deleteUser(Long Id);
+
     UserEntity findByEmail(String email);
 
     UserEntity findByUsername(String username);
