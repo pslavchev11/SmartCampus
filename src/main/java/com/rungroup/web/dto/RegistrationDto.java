@@ -6,6 +6,8 @@ import lombok.Data;
 
 @Data
 public class RegistrationDto {
+    public interface OnCreate {}
+
     private Long id;
     @NotNull
     private Integer uniqueNumber;
@@ -13,7 +15,7 @@ public class RegistrationDto {
     private String username;
     @NotEmpty
     private String email;
-    @NotEmpty
+    @NotEmpty(groups = OnCreate.class)
     private String password;
     @NotEmpty
     private String role;

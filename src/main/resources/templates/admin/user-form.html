@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{user.edit.title}">Edit User</title>
+</head>
+<body layout:fragment="body">
+<div class="container mt-4">
+    <h2 th:text="#{user.edit.heading}">Edit User</h2>
+    <form th:action="@{/admin/users/edit}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <!-- reuse your fields -->
+        <div class="mb-3">
+            <label th:for="username" th:text="#{register.username.label}">Username</label>
+            <input type="text" th:field="*{username}" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label th:text="#{register.email.label}">Email</label>
+            <input type="email" th:field="*{email}" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label th:text="#{register.role.label}">Role</label>
+            <select th:field="*{role}" class="form-control">
+                <option value="STUDENT">Student</option>
+                <option value="TEACHER">Teacher</option>
+                <option value="ADMIN">Admin</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label th:text="#{register.uniqueNumber.label}">Unique Number</label>
+            <input type="number" th:field="*{uniqueNumber}" class="form-control"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary" th:text="#{user.saveButton}">Save</button>
+        <a th:href="@{/admin/users}" class="btn btn-secondary" th:text="#{user.cancelButton}">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
