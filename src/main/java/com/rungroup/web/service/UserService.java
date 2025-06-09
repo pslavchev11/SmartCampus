@@ -12,7 +12,7 @@ public interface UserService {
 
     void updateUser(RegistrationDto registrationDto);
 
-    void deleteUser(Long Id);
+    void deleteUser(Long id);
 
     UserEntity findByEmail(String email);
 
