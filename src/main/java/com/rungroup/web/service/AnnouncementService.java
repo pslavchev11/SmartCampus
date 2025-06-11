@@ -16,4 +16,6 @@ public interface AnnouncementService {
     void updateAnnouncement(AnnouncementDto announcement);
 
     void delete(long announcementId);
+
+    public List<AnnouncementDto> findAnnouncementsForUser(String username);
 }

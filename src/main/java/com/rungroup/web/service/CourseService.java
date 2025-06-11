@@ -12,6 +12,8 @@ public interface CourseService {
 
     CourseDto findCourseById(long courseId);
 
+    Course getCourseEntityById(long id);
+
     void updateCourse(CourseDto course);
 
     void delete(long courseId);

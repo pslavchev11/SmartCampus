@@ -31,6 +31,10 @@ public class Announcement {
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "course_id")
+    private Course course;
+
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
     private UserEntity createdBy;

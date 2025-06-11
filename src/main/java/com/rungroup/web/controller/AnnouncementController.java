@@ -2,9 +2,11 @@ package com.rungroup.web.controller;
 
 import com.rungroup.web.dto.AnnouncementDto;
 import com.rungroup.web.models.Announcement;
+import com.rungroup.web.models.Course;
 import com.rungroup.web.models.UserEntity;
 import com.rungroup.web.security.SecurityUtil;
 import com.rungroup.web.service.AnnouncementService;
+import com.rungroup.web.service.CourseService;
 import com.rungroup.web.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,29 +18,48 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 public class AnnouncementController {
     private AnnouncementService announcementService;
     private UserService userService;
+    private CourseService courseService;
     @Autowired
-    public AnnouncementController(AnnouncementService announcementService, UserService userService) {
+    public AnnouncementController(AnnouncementService announcementService, UserService userService, CourseService courseService) {
         this.announcementService = announcementService;
         this.userService = userService;
+        this.courseService = courseService;
     }
 
+//    @GetMapping("/announcements")
+//    public String listAnnouncements(Model model) {
+//        List<AnnouncementDto> announcements = announcementService.findAllAnnouncements();
+//        model.addAttribute("announcements", announcements);
+//
+//        String username = SecurityUtil.getSessionUser();
+//        if (username != null) {
+//            UserEntity user = userService.findByUsername(username);
+//            model.addAttribute("user", user);
+//        }
+//
+//        return "announcements-list";
+//    }
+
     @GetMapping("/announcements")
-    public String listAnnouncements(Model model) {
-        List<AnnouncementDto> announcements = announcementService.findAllAnnouncements();
-        model.addAttribute("announcements", announcements);
+    public String listAnnouncements(Model model, Principal principal) {
+        String username = principal == null ? null : principal.getName();
+        List<AnnouncementDto> list =
+                username != null
+                        ? announcementService.findAnnouncementsForUser(username)
+                        : List.of();  // or annSvc.findAllAnnouncements()
 
-        String username = SecurityUtil.getSessionUser();
+        model.addAttribute("announcements", list);
+
         if (username != null) {
-            UserEntity user = userService.findByUsername(username);
-            model.addAttribute("user", user);
+            model.addAttribute("user", userService.findByUsername(username));
         }
-
         return "announcements-list";
     }
 
@@ -59,8 +80,9 @@ public class AnnouncementController {
 
     @GetMapping("/announcements/new")
     public String createAnnouncementForm(Model model) {
-        Announcement announcement = new Announcement();
+        AnnouncementDto announcement = new AnnouncementDto();
         model.addAttribute("announcement", announcement);
+        model.addAttribute("courses", courseService.findAllCourses());
         return "announcement-create";
     }
 
@@ -74,6 +96,7 @@ public class AnnouncementController {
     public String editAnnouncementForm(@PathVariable("announcementId") long announcementId, Model model) {
         AnnouncementDto announcement = announcementService.findAnnouncementById(announcementId);
         model.addAttribute("announcement", announcement);
+        model.addAttribute("courses", courseService.findAllCourses());
         return "announcement-edit";
     }
 

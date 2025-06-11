@@ -8,6 +8,7 @@ import com.rungroup.web.repository.CourseRepository;
 import com.rungroup.web.repository.UserRepository;
 import com.rungroup.web.security.SecurityUtil;
 import com.rungroup.web.service.CourseService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +52,12 @@ public class CourseServiceImpl implements CourseService {
     public CourseDto findCourseById(long courseId) {
         Course course = courseRepository.findById(courseId).get();
         return mapToCourseDto(course);
+    }
+
+    @Override
+    public Course getCourseEntityById(long id) {
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found: " + id));
     }
 
     @Override

@@ -30,6 +30,19 @@
                         <div class="small text-muted" th:text="${event.createdOn}">
                             <!-- e.g. “June 1, 2025” -->
                         </div>
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4" th:text="#{announcementDetail.startsPrefix}">Starts:</dt>
+                            <dd class="col-sm-8"
+                                th:text="${#temporals.format(event.startTime, 'MMM d, yyyy h:mma')}">
+                                May 12, 2025 5:45pm
+                            </dd>
+
+                            <dt class="col-sm-4" th:text="#{announcementDetail.endsPrefix}">Ends:</dt>
+                            <dd class="col-sm-8"
+                                th:text="${#temporals.format(event.endTime, 'MMM d, yyyy h:mma')}">
+                                May 12, 2025 7:00pm
+                            </dd>
+                        </dl>
                         <h2 class="card-title" th:text="#{eventDetail.aboutHeader}">
                             About this Event
                         </h2>

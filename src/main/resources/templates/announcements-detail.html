@@ -16,10 +16,8 @@
                 <div class="card-header d-flex justify-content-between align-items-baseline">
                     <h4 class="mb-0" th:text="${announcement.title}">Title</h4>
                     <small class="text-muted">
-                        <span th:text="#{announcementDetail.createdPrefix}">Created:</span>
-                        <span th:text="${#temporals.format(announcement.createdOn, 'MMM d, yyyy h:mma')}">
-                May 12, 2025 5:45pm
-              </span>
+                        <span >Course:</span>
+                        <span th:text="${announcement.courseName}">Course Name</span>
                     </small>
                 </div>
 
@@ -68,7 +66,7 @@
                             ← Back to Announcements
                         </a>
 
-                        <span th:if="${user != null and user.id == announcement.createdBy.id}">
+                <span th:if="${user != null and user.id == announcement.createdBy.id}">
                 <a th:href="@{/announcements/{id}/edit(id=${announcement.id})}"
                    class="btn btn-outline-primary me-2"
                    th:text="#{announcementDetail.editButton}">
@@ -81,7 +79,6 @@
                 </a>
               </span>
                     </div>
-
                 </div>
             </div>
 
