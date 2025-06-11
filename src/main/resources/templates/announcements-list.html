@@ -50,6 +50,9 @@
                             Announcement Title
                         </a>
 
+                        <small class="text-muted"
+                               th:text="${announcement.courseName}">Course Name</small>
+
                         <!-- Preview of content -->
                         <p class="mb-1 text-muted" th:text="${announcement.content}">
                             Content preview...

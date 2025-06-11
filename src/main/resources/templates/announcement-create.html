@@ -91,6 +91,24 @@
                        th:errors="*{endTime}"></p>
                 </div>
 
+                <div class="form-group mb-3">
+                    <label for="courseId" th:text="#{announcementForm.course.label}">Course</label>
+                    <select
+                            id="courseId"
+                            class="form-control"
+                            th:field="*{courseId}">
+                        <option value="" th:text="#{announcementForm.course.selectPrompt}">-- select a course --</option>
+                        <option th:each="c : ${courses}"
+                                th:value="${c.id}"
+                                th:text="${c.name}">
+                        </option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('courseId')}"
+                       class="text-danger"
+                       th:errors="*{courseId}"></p>
+                </div>
+
+
                 <!-- Submit -->
                 <button type="submit"
                         class="btn btn-primary"
