@@ -39,7 +39,6 @@ public class CourseController {
 
     @GetMapping("/courses")
     public String listCourses(Model model) throws Exception {
-        // 1) figure out who’s logged in and what role they have
         String username = SecurityUtil.getSessionUser();
         UserEntity me = null;
         boolean isStudent = false, isTeacher = false;
@@ -51,31 +50,24 @@ public class CourseController {
                 if ("TEACHER".equals(r.getName())) isTeacher = true;
             }
         }
-
-        // 2) always fetch full list for the right‐hand legend
         List<CourseDto> allCourses = courseService.findAllCourses();
         model.addAttribute("courses", allCourses);
 
-        // 3) build the list that will become calendar events
         List<CourseDto> forCalendar;
         if (isStudent) {
-            // student: only their enrollments
             long studentId = me.getId();
             forCalendar = allCourses.stream()
                     .filter(c -> enrollmentService.isEnrolled(studentId, c.getId()))
                     .toList();
         } else if (isTeacher) {
-            // teacher: only courses they created
             long teacherId = me.getId();
             forCalendar = allCourses.stream()
                     .filter(c -> c.getCreatedById().equals(teacherId))
                     .toList();
         } else {
-            // otherwise (e.g. admin/guest): show everything
             forCalendar = allCourses;
         }
 
-        // 4) turn that into FullCalendar JSON
         List<Map<String,Object>> fcEvents = forCalendar.stream()
                 .map(c -> {
                     Map<String,Object> ev = new HashMap<>();
