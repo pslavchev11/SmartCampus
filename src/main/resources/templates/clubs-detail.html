@@ -30,7 +30,7 @@
                         <a href="#!"><img class="card-img-top" th:src="${club.photoUrl}" alt="..." /></a>
                         <div class="card-body">
                             <div class="small text-muted" th:text="${club.createdOn}"></div>
-                            <h2 class="card-title">About this Running club</h2>
+                            <h2 class="card-title" th:text="#{clubDetail.aboutHeader}">About this club</h2>
                             <p class="card-text" th:text="${club.content}"></p>
                             <div th:if="${user.id} == ${club.createdBy.id}">
                                 <a class="btn btn-primary" th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}" th:text="#{clubDetail.deleteButton}">Delete</a>

@@ -8,163 +8,167 @@
 <body class="d-flex flex-column h-100">
 <main class="flex-shrink-0">
     <section layout:fragment="body" class="py-5">
-        <div class="container">
-            <form
-                    role="form"
-                    method="post"
-                    th:action="@{/courses/new}"
-                    th:object="${course}">
-                <div class="form-row">
+        <div class="container" style="min-height: 80vh;">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="col-md-8 col-lg-6 col-sm-12">
+                    <form
+                            role="form"
+                            method="post"
+                            th:action="@{/courses/new}"
+                            th:object="${course}">
+                        <div class="form-row">
 
-                    <!-- Name -->
-                    <div class="form-group mb-3 col-md-6">
-                        <label for="name" th:text="#{courseForm.name.label}">Name</label>
-                        <input
-                                type="text"
-                                class="form-control"
-                                id="name"
-                                name="name"
-                                th:field="*{name}"
-                                th:placeholder="#{courseForm.name.placeholder}" />
-                        <p th:if="${#fields.hasErrors('name')}"
-                           class="text-danger"
-                           th:errors="*{name}"></p>
-                    </div>
+                            <!-- Name -->
+                            <div class="form-group mb-3">
+                                <label for="name" th:text="#{courseForm.name.label}">Name</label>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        id="name"
+                                        name="name"
+                                        th:field="*{name}"
+                                        th:placeholder="#{courseForm.name.placeholder}" />
+                                <p th:if="${#fields.hasErrors('name')}"
+                                   class="text-danger"
+                                   th:errors="*{name}"></p>
+                            </div>
 
-                    <!-- PhotoUrl -->
-                    <div class="form-group mb-3 col-md-6">
-                        <label for="photoUrl" th:text="#{courseForm.photoUrl.label}">PhotoUrl</label>
-                        <input
-                                type="text"
-                                class="form-control"
-                                id="photoUrl"
-                                name="photoUrl"
-                                th:field="*{photoUrl}"
-                                th:placeholder="#{courseForm.photoUrl.placeholder}" />
-                        <p th:if="${#fields.hasErrors('photoUrl')}"
-                           class="text-danger"
-                           th:errors="*{photoUrl}"></p>
-                    </div>
+                            <!-- PhotoUrl -->
+                            <div class="form-group mb-3">
+                                <label for="photoUrl" th:text="#{courseForm.photoUrl.label}">PhotoUrl</label>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        id="photoUrl"
+                                        name="photoUrl"
+                                        th:field="*{photoUrl}"
+                                        th:placeholder="#{courseForm.photoUrl.placeholder}" />
+                                <p th:if="${#fields.hasErrors('photoUrl')}"
+                                   class="text-danger"
+                                   th:errors="*{photoUrl}"></p>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group mb-3">
+                            <label for="description" th:text="#{courseForm.description.label}">Description</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="description"
+                                    name="description"
+                                    th:field="*{description}"
+                                    th:placeholder="#{courseForm.description.placeholder}" />
+                            <p th:if="${#fields.hasErrors('description')}"
+                               class="text-danger"
+                               th:errors="*{description}"></p>
+                        </div>
+
+                        <div class="form-row">
+                            <!-- Start Time -->
+                            <div class="form-group mb-3">
+                                <label for="startTime" th:text="#{courseForm.startTime.label}">Start Time</label>
+                                <input
+                                        type="time"
+                                        class="form-control"
+                                        id="startTime"
+                                        name="startTime"
+                                        th:field="*{startTime}"
+                                        th:placeholder="#{courseForm.startTime.placeholder}" />
+                                <p th:if="${#fields.hasErrors('startTime')}"
+                                   class="text-danger"
+                                   th:errors="*{startTime}"></p>
+                            </div>
+
+                            <!-- End Time -->
+                            <div class="form-group mb-3">
+                                <label for="endTime" th:text="#{courseForm.endTime.label}">End Time</label>
+                                <input
+                                        type="time"
+                                        class="form-control"
+                                        id="endTime"
+                                        name="endTime"
+                                        th:field="*{endTime}"
+                                        th:placeholder="#{courseForm.endTime.placeholder}" />
+                                <p th:if="${#fields.hasErrors('endTime')}"
+                                   class="text-danger"
+                                   th:errors="*{endTime}"></p>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <!-- Semester Start -->
+                            <div class="form-group mb-3">
+                                <label for="semesterStart" th:text="#{courseForm.semesterStart.label}">Start of the Semester</label>
+                                <input
+                                        type="date"
+                                        class="form-control"
+                                        id="semesterStart"
+                                        name="semesterStart"
+                                        th:field="*{semesterStart}"
+                                        th:placeholder="#{courseForm.semesterStart.placeholder}" />
+                                <p th:if="${#fields.hasErrors('semesterStart')}"
+                                   class="text-danger"
+                                   th:errors="*{semesterStart}"></p>
+                            </div>
+
+                            <!-- Semester End -->
+                            <div class="form-group mb-3">
+                                <label for="semesterEnd" th:text="#{courseForm.semesterEnd.label}">End of the Semester</label>
+                                <input
+                                        type="date"
+                                        class="form-control"
+                                        id="semesterEnd"
+                                        name="semesterEnd"
+                                        th:field="*{semesterEnd}"
+                                        th:placeholder="#{courseForm.semesterEnd.placeholder}" />
+                                <p th:if="${#fields.hasErrors('semesterEnd')}"
+                                   class="text-danger"
+                                   th:errors="*{semesterEnd}"></p>
+                            </div>
+                        </div>
+
+                        <!-- Day of Week -->
+                        <div class="form-group mb-3">
+                            <label for="dayOfWeek" th:text="#{courseForm.dayOfWeek.label}">Meeting Day</label>
+                            <select
+                                    id="dayOfWeek"
+                                    class="form-control"
+                                    th:field="*{dayOfWeek}">
+                                <option th:value="1" th:text="#{courseDetail.day1Name}">Monday</option>
+                                <option th:value="2" th:text="#{courseDetail.day2Name}">Tuesday</option>
+                                <option th:value="3" th:text="#{courseDetail.day3Name}">Wednesday</option>
+                                <option th:value="4" th:text="#{courseDetail.day4Name}">Thursday</option>
+                                <option th:value="5" th:text="#{courseDetail.day5Name}">Friday</option>
+                                <option th:value="6" th:text="#{courseDetail.day6Name}">Saturday</option>
+                                <option th:value="7" th:text="#{courseDetail.day7Name}">Sunday</option>
+                            </select>
+                            <p th:if="${#fields.hasErrors('dayOfWeek')}"
+                               class="text-danger"
+                               th:errors="*{dayOfWeek}"></p>
+                        </div>
+
+                        <!-- Event Color -->
+                        <div class="form-group mb-3">
+                            <label for="color" th:text="#{courseForm.color.label}">Event Color</label>
+                            <input
+                                    type="color"
+                                    id="color"
+                                    class="form-control form-control-color"
+                                    th:field="*{color}"
+                                    th:attr="title=#{courseForm.colorPickerTitle}" />
+                        </div>
+
+                        <!-- Submit -->
+                        <button
+                                type="submit"
+                                class="btn btn-primary"
+                                th:text="#{courseForm.submitButton}">
+                            Create
+                        </button>
+                    </form>
                 </div>
-
-                <!-- Description -->
-                <div class="form-group mb-3 col-md-6">
-                    <label for="description" th:text="#{courseForm.description.label}">Description</label>
-                    <input
-                            type="text"
-                            class="form-control"
-                            id="description"
-                            name="description"
-                            th:field="*{description}"
-                            th:placeholder="#{courseForm.description.placeholder}" />
-                    <p th:if="${#fields.hasErrors('description')}"
-                       class="text-danger"
-                       th:errors="*{description}"></p>
-                </div>
-
-                <div class="form-row">
-                    <!-- Start Time -->
-                    <div class="form-group mb-3 col-md-6">
-                        <label for="startTime" th:text="#{courseForm.startTime.label}">Start Time</label>
-                        <input
-                                type="time"
-                                class="form-control"
-                                id="startTime"
-                                name="startTime"
-                                th:field="*{startTime}"
-                                th:placeholder="#{courseForm.startTime.placeholder}" />
-                        <p th:if="${#fields.hasErrors('startTime')}"
-                           class="text-danger"
-                           th:errors="*{startTime}"></p>
-                    </div>
-
-                    <!-- End Time -->
-                    <div class="form-group mb-3 col-md-6">
-                        <label for="endTime" th:text="#{courseForm.endTime.label}">End Time</label>
-                        <input
-                                type="time"
-                                class="form-control"
-                                id="endTime"
-                                name="endTime"
-                                th:field="*{endTime}"
-                                th:placeholder="#{courseForm.endTime.placeholder}" />
-                        <p th:if="${#fields.hasErrors('endTime')}"
-                           class="text-danger"
-                           th:errors="*{endTime}"></p>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <!-- Semester Start -->
-                    <div class="form-group mb-3 col-md-6">
-                        <label for="semesterStart" th:text="#{courseForm.semesterStart.label}">Start of the Semester</label>
-                        <input
-                                type="date"
-                                class="form-control"
-                                id="semesterStart"
-                                name="semesterStart"
-                                th:field="*{semesterStart}"
-                                th:placeholder="#{courseForm.semesterStart.placeholder}" />
-                        <p th:if="${#fields.hasErrors('semesterStart')}"
-                           class="text-danger"
-                           th:errors="*{semesterStart}"></p>
-                    </div>
-
-                    <!-- Semester End -->
-                    <div class="form-group mb-3 col-md-6">
-                        <label for="semesterEnd" th:text="#{courseForm.semesterEnd.label}">End of the Semester</label>
-                        <input
-                                type="date"
-                                class="form-control"
-                                id="semesterEnd"
-                                name="semesterEnd"
-                                th:field="*{semesterEnd}"
-                                th:placeholder="#{courseForm.semesterEnd.placeholder}" />
-                        <p th:if="${#fields.hasErrors('semesterEnd')}"
-                           class="text-danger"
-                           th:errors="*{semesterEnd}"></p>
-                    </div>
-                </div>
-
-                <!-- Day of Week -->
-                <div class="form-group mb-3 col-md-6">
-                    <label for="dayOfWeek" th:text="#{courseForm.dayOfWeek.label}">Meeting Day</label>
-                    <select
-                            id="dayOfWeek"
-                            class="form-control"
-                            th:field="*{dayOfWeek}">
-                        <option th:value="1" th:text="#{courseDetail.day1Name}">Monday</option>
-                        <option th:value="2" th:text="#{courseDetail.day2Name}">Tuesday</option>
-                        <option th:value="3" th:text="#{courseDetail.day3Name}">Wednesday</option>
-                        <option th:value="4" th:text="#{courseDetail.day4Name}">Thursday</option>
-                        <option th:value="5" th:text="#{courseDetail.day5Name}">Friday</option>
-                        <option th:value="6" th:text="#{courseDetail.day6Name}">Saturday</option>
-                        <option th:value="7" th:text="#{courseDetail.day7Name}">Sunday</option>
-                    </select>
-                    <p th:if="${#fields.hasErrors('dayOfWeek')}"
-                       class="text-danger"
-                       th:errors="*{dayOfWeek}"></p>
-                </div>
-
-                <!-- Event Color -->
-                <div class="form-group mb-3 col-md-6">
-                    <label for="color" th:text="#{courseForm.color.label}">Event Color</label>
-                    <input
-                            type="color"
-                            id="color"
-                            class="form-control form-control-color"
-                            th:field="*{color}"
-                            th:attr="title=#{courseForm.colorPickerTitle}" />
-                </div>
-
-                <!-- Submit -->
-                <button
-                        type="submit"
-                        class="btn btn-primary"
-                        th:text="#{courseForm.submitButton}">
-                    Create
-                </button>
-            </form>
+            </div>
         </div>
     </section>
 </main>
