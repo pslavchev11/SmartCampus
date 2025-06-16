@@ -5,7 +5,6 @@
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         layout:decorate="~{layout}">
 <head>
-    <!-- Title: “<courseName> – Smart Campus” via layout:title-pattern -->
     <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">
         <span th:text="${course.name}">Course Name</span>
     </title>

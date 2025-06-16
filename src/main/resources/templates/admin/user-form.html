@@ -10,8 +10,6 @@
     <h2 th:text="#{user.edit.heading}">Edit User</h2>
     <form th:action="@{/admin/users/edit}" th:object="${user}" method="post">
         <input type="hidden" th:field="*{id}" />
-
-        <!-- reuse your fields -->
         <div class="mb-3">
             <label th:for="username" th:text="#{register.username.label}">Username</label>
             <input type="text" th:field="*{username}" class="form-control"/>

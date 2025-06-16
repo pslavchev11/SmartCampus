@@ -4,10 +4,8 @@
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         layout:decorate="~{layout}">
 <head>
-    <!-- Page title -->
     <title th:text="#{page.courseCalendar}">Course Calendar</title>
 
-    <!-- FullCalendar CSS & JS (unchanged) -->
     <link
             href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css"
             rel="stylesheet"/>
@@ -61,26 +59,6 @@
                             th:text="${course.name}">
                         Course Name
                     </a>
-
-                    <!-- (Optional) edit/delete buttons if the authenticated user created this course -->
-                    <!--
-                    <div th:if="${user.id} == ${course.createdById}">
-                      <div class="d-flex align-items-center gap-2">
-                        <a
-                          class="btn btn-sm btn-outline-primary ms-4"
-                          th:href="@{/courses/{id}/edit(id=${course.id})}"
-                          th:text="#{courseCalendar.editButton}">
-                          Edit
-                        </a>
-                        <a
-                          class="btn btn-sm btn-outline-danger"
-                          th:href="@{/courses/{id}/delete(id=${course.id})}"
-                          th:text="#{courseCalendar.deleteButton}">
-                          Delete
-                        </a>
-                      </div>
-                    </div>
-                    -->
                 </li>
             </ul>
         </div>

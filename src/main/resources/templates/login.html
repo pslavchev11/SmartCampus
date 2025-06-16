@@ -6,10 +6,6 @@
 <head>
     <title th:text="#{login.title}">Login</title>
 </head>
-
-<!--
-  This fragment will be inserted into your “layout” template’s <body> at the “body” fragment.
--->
 <section layout:fragment="body">
     <div class="container" style="min-height: 80vh;">
         <div class="row h-100 justify-content-center align-items-center">
@@ -20,7 +16,6 @@
                 <!-- If Spring Security passed a logout parameter -->
                 <div th:if="${param.logout}" class="alert alert-success"
                      th:text="#{login.loggedOut}">You have been logged out.</div>
-
                 <div class="login-form">
                     <form method="post" th:action="@{/login}" role="form">
                         <div class="form-group">

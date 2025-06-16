@@ -33,20 +33,6 @@ public class AnnouncementController {
         this.courseService = courseService;
     }
 
-//    @GetMapping("/announcements")
-//    public String listAnnouncements(Model model) {
-//        List<AnnouncementDto> announcements = announcementService.findAllAnnouncements();
-//        model.addAttribute("announcements", announcements);
-//
-//        String username = SecurityUtil.getSessionUser();
-//        if (username != null) {
-//            UserEntity user = userService.findByUsername(username);
-//            model.addAttribute("user", user);
-//        }
-//
-//        return "announcements-list";
-//    }
-
     @GetMapping("/announcements")
     public String listAnnouncements(Model model, Principal principal) {
         String username = principal == null ? null : principal.getName();

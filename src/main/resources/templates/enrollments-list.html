@@ -17,9 +17,7 @@
         <tr>
             <th th:text="#{enrollmentList.courseColumn}">Course</th>
             <th th:text="#{enrollmentList.dateEnrolledColumn}">Date Enrolled</th>
-            <!-- Example: If you later want teachers to see a “Student” column, you can uncomment this.
-            <th sec:authorize="hasRole('TEACHER')" th:text="#{enrollmentList.studentColumn}">Student</th>
-            -->
+
         </tr>
         </thead>
         <tbody>
@@ -33,13 +31,6 @@
             <td th:text="${#temporals.format(enr.dateAwarded, 'yyyy-MM-dd')}">
                 2025-05-12
             </td>
-
-            <!-- Uncomment if teachers need to see which student:
-            <td sec:authorize="hasRole('TEACHER')"
-                th:text="${enr.studentUsername}">
-              studentUsername
-            </td>
-            -->
         </tr>
         </tbody>
     </table>

@@ -18,7 +18,6 @@
         <tr>
             <th th:text="#{roster.studentColumn}">Student</th>
             <th th:text="#{roster.uniqueNumberColumn}">UN</th>
-            <!--<th th:text="#{roster.dateEnrolledColumn}">Date Enrolled</th>-->
             <th th:text="#{roster.gradeColumn}">Grade</th>
             <th th:text="#{roster.gradeTypeColumn}">Type of Grade</th>
             <th th:text="#{roster.gradeDateColumn}">Grade Date</th>
@@ -30,11 +29,6 @@
         <tbody>
         <tr th:each="enr : ${roster}">
             <td th:text="${enr.studentUsername}">studentUsername</td>
-            <!--
-            <td th:text="${#temporals.format(enr.dateAwarded,'yyyy-MM-dd')}">
-              2025-05-14
-            </td>
-            -->
             <td th:text="${enr.uniqueNumber}">-</td>
             <td th:text="${enr.grade != null ? enr.grade : '—'}">—</td>
             <td th:text="${enr.typeOfGrade != null ? enr.typeOfGrade : '—'}">—</td>

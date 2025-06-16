@@ -19,7 +19,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-public class HousingController {
+public class  HousingController {
     private final HousingService housingService;
     private final UserService userService;
 

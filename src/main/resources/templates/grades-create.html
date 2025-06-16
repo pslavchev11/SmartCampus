@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
@@ -10,8 +10,6 @@
 <div class="container py-4">
     <!-- Page heading -->
     <h2 class="mb-4" th:text="#{grades.assignHeading}">Assign Grade</h2>
-
-    <!-- Show course & student (if your DTO provides them) -->
     <p>
         <strong th:text="#{grades.courseLabel}">Course:</strong>
         <span th:text="${gradeDto.courseName}">Course Name</span>
@@ -26,8 +24,6 @@
           th:object="${gradeDto}"
           method="post"
           sec:authorize="hasRole('TEACHER')">
-
-        <!-- Hidden: keep track of which grade record / course / student -->
         <input type="hidden" th:field="*{id}" />
         <input type="hidden" th:field="*{courseId}" />
         <input type="hidden" th:field="*{studentId}" />
@@ -68,8 +64,6 @@
                         th:text="#{grades.typeProject}">Project</option>
             </select>
         </div>
-
-        <!-- Date Awarded (read‐only: shows “today”) -->
         <div class="mb-3">
             <label>
                 <strong th:text="#{grades.dateAwardedLabel}">Date Awarded</strong>
@@ -78,7 +72,6 @@
                 2025-05-12
             </p>
         </div>
-
         <!-- Endorsement -->
         <div class="mb-3">
             <label for="endorsement" class="form-label">
@@ -99,7 +92,6 @@
                         th:text="#{grades.endorsementNo}">No</option>
             </select>
         </div>
-
         <!-- Reason if No Endorsement -->
         <div class="form-group mb-3">
             <label for="reasonForNoEndorsement"><strong th:text="#{grades.endorsementReason}">Reason if No Endorsement</strong></label>
@@ -114,7 +106,6 @@
                class="text-danger"
                th:errors="*{reasonForNoEndorsement}"></p>
         </div>
-
         <!-- Save / Cancel buttons -->
         <button type="submit"
                 class="btn btn-primary"

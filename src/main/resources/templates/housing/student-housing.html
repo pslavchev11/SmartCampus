@@ -8,12 +8,9 @@
     <meta charset="UTF-8"/>
     <title th:text="#{housing.my.title}">My Campus Housing</title>
 </head>
-
-<!-- must match layout.html’s `layout:fragment="body"` -->
 <div layout:fragment="body">
     <div class="container mt-4">
         <h2 th:text="#{housing.my.heading}">My Campus Housing</h2>
-
         <!-- If the student has housing assigned -->
         <div class="card mt-3" th:if="${myHousing != null}">
             <div class="card-header">
@@ -35,7 +32,6 @@
                 </p>
             </div>
         </div>
-
         <!-- If no housing assigned -->
         <div class="alert alert-warning mt-3"
              th:if="${myHousing == null}"
