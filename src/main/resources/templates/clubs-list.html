@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html
         xmlns:th="http://thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -10,9 +11,15 @@
     <!-- Page Content-->
     <section layout:fragment="body" class="py-5">
         <div class="container px-5 my-5">
-            <div th:if="${param.success}" class="alert alert-success" th:text="#{clubList.successMessage}">
+
+            <!-- Success message -->
+            <div th:if="${param.success}"
+                 class="alert alert-success"
+                 th:text="#{clubList.successMessage}">
                 You are registered successfully!
             </div>
+
+            <!-- Header / Create button -->
             <div class="row align-items-center mb-5">
                 <div class="col-3"></div>
                 <div class="col-6 text-center">
@@ -22,36 +29,67 @@
                     </p>
                 </div>
                 <div class="col-3 text-end">
-                    <a th:href="@{/clubs/new}" class="btn btn-sm btn-outline-primary" th:text="#{clubList.createButton}">Create </a>
+                    <a th:href="@{/clubs/new}"
+                       class="btn btn-sm btn-outline-primary"
+                       th:text="#{clubList.createButton}">
+                        Create
+                    </a>
                 </div>
             </div>
+
+            <!-- Search bar -->
             <div class="row gx-5">
-                <div>
-                    <form th:action="@{/clubs/search}" class="form-inline my-2 my-lg-0 mb-3">
-                        <input name="query" class="form-control mr-sm-2" type="search" th:placeholder="#{clubList.search.placeholder}" aria-label="Search">
+                <div class="col-12 mb-3">
+                    <form th:action="@{/clubs/search}" class="form-inline">
+                        <input name="query"
+                               class="form-control w-100"
+                               type="search"
+                               th:placeholder="#{clubList.search.placeholder}"
+                               aria-label="Search">
                     </form>
                 </div>
-                <div class="row gx-5 mt-5">
-                    <div th:each="club :${clubs}" class="col-lg-4 mb-2">
+
+                <!-- Clubs grid -->
+                <div class="row gx-5 mt-4">
+                    <div th:each="club : ${clubs}"
+                         class="col-lg-4 mb-4">
+
+                        <!-- Image + title -->
                         <div class="position-relative mb-3">
                             <div class="ratio ratio-1x1 rounded-3 overflow-hidden mb-2">
-                                <img
-                                        th:src="${club.photoUrl}"
-                                        alt="#{club.photo.alt}"
-                                        class="img-fluid w-100 h-100"
-                                        style="object-fit: cover;"
-                                />
+                                <img th:src="${club.photoUrl}"
+                                     alt="#{club.photo.alt}"
+                                     class="img-fluid w-100 h-100"
+                                     style="object-fit: cover;"/>
                             </div>
-                            <a th:text="${club.title}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!">Project name</a>
+                            <a th:href="@{/clubs/{id}(id=${club.id})}"
+                               th:text="${club.title}"
+                               class="h3 fw-bolder text-decoration-none link-dark stretched-link">
+                                Club Name
+                            </a>
+                        </div>
 
+                        <!-- Buttons side-by-side -->
+                        <div class="d-flex align-items-center mt-2">
+                            <!-- Always show View -->
+                            <a class="btn btn-primary me-2"
+                               th:href="@{/clubs/{id}(id=${club.id})}"
+                               th:text="#{clubList.viewButton}">
+                                View
+                            </a>
+                            <!-- Show Edit only if current user created it -->
+                            <a class="btn btn-secondary"
+                               th:if="${user.id} == ${club.createdBy.id}"
+                               th:href="@{/clubs/{id}/edit(id=${club.id})}"
+                               th:text="#{clubList.editButton}">
+                                Edit
+                            </a>
                         </div>
-                        <a class="btn btn-primary" th:href="@{/clubs/{clubId}(clubId=${club.id})}" th:text="#{clubList.viewButton}">View</a>
-                        <div th:if="${user.id} == ${club.createdBy.id}">
-                            <a class="btn btn-primary" th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}" th:text="#{clubList.editButton}">Edit</a>
-                        </div>
+
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 </main>

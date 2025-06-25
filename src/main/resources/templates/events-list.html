@@ -45,17 +45,17 @@
                             </a>
                         </div>
 
-                        <a
-                                class="btn btn-primary"
-                                th:href="@{/events/{eventId}(eventId=${event.id})}"
-                                th:text="#{eventList.viewButton}">
-                            View
-                        </a>
-
-                        <div th:if="${user.id} == ${event.club.createdBy.id}">
+                        <div class="d-flex align-items-center mt-2">
                             <a
+                                    class="btn btn-primary me-2"
+                                    th:href="@{/events/{eventId}(eventId=${event.id})}"
+                                    th:text="#{eventList.viewButton}">
+                                View
+                            </a>
+                            <a
+                                    class="btn btn-secondary"
+                                    th:if="${user.id} == ${event.club.createdBy.id}"
                                     th:href="@{/events/{eventId}/edit(eventId=${event.id})}"
-                                    class="btn btn-primary"
                                     th:text="#{eventList.editButton}">
                                 Edit
                             </a>
