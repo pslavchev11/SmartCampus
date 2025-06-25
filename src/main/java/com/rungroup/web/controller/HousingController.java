@@ -73,7 +73,7 @@ public class  HousingController {
         return "redirect:/housing";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/housing/{id}/edit")
     public String showEditForm(@PathVariable Long id, Model model) {
         HousingDto dto = housingService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid housing Id: " + id));
@@ -82,7 +82,7 @@ public class  HousingController {
         return "housing/housing-create";
     }
 
-    @PostMapping("/{id}/edit")
+    @PostMapping("/housing/{id}/edit")
     public String updateHousing(
             @PathVariable Long id,
             @Valid @ModelAttribute("housingDto") HousingDto dto,
