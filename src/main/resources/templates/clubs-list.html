@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
         xmlns:th="http://thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
         layout:decorate="~{layout}">
 <head>
     <title th:text="#{page.clubList}">Club List</title>
@@ -30,6 +30,7 @@
                 </div>
                 <div class="col-3 text-end">
                     <a th:href="@{/clubs/new}"
+                       sec:authorize="hasAnyRole('STUDENT','TEACHER', 'ADMIN')"
                        class="btn btn-sm btn-outline-primary"
                        th:text="#{clubList.createButton}">
                         Create

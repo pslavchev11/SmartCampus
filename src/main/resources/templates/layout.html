@@ -77,7 +77,7 @@
         </li>
 
         <!-- Calendar -->
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasAnyRole('STUDENT','TEACHER', 'ADMIN')">
           <a class="nav-link"
              th:href="@{/courses}"
              th:classappend="${currentUri == '/courses'} ? ' active'"
