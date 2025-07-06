@@ -42,9 +42,9 @@
                                 May 12, 2025 7:00pm
                             </dd>
                         </dl>
-                        <h2 class="card-title" th:text="#{eventDetail.aboutHeader}">
+                        <h4 class="card-title" th:text="#{eventDetail.aboutHeader}">
                             About this Event
-                        </h2>
+                        </h4>
                         <p class="card-text" th:text="${event.type}">
                         </p>
                         <div th:if="${user.id} == ${event.club.createdBy.id}">
